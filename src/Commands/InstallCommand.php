@@ -16,19 +16,20 @@ class InstallCommand extends Command
 
     /**
      * The console command signature.
+     *
      * @var string
      */
     protected $signature = 'laraprime:install';
 
     /**
      * The console command description.
+     *
      * @var string
      */
     protected $description = 'Install all of the LaraPrime files';
 
     /**
      * Execute the console command.
-     * @return void
      */
     public function handle(): void
     {
@@ -38,7 +39,7 @@ class InstallCommand extends Command
         $this
             ->executeCommand('vendor:publish', [
                 '--provider' => LaraPrimeServiceProvider::class,
-                '--tag'      => [
+                '--tag' => [
                     'laraprime-config',
                     'laraprime-migrations',
                     'laraprime-app-stubs',
@@ -58,6 +59,7 @@ class InstallCommand extends Command
 
     /**
      * Execute a command with parameters in silent mode.
+     *
      * @return $this
      */
     private function executeCommand(string $command, array $parameters = []): self
@@ -78,18 +80,15 @@ class InstallCommand extends Command
         return $this;
     }
 
-    /**
-     * @return self
-     */
     private function showMeLove(): self
     {
-        if(App::runningUnitTests() || ! $this->confirm('Would you like to show a little love by starting with ⭐️ the LaraPrime repository?')) {
+        if (App::runningUnitTests() || ! $this->confirm('Would you like to show a little love by starting with ⭐️ the LaraPrime repository?')) {
             return $this;
         }
 
         $repo = LaraPrime::repo();
 
-        match(PHP_OS_FAMILY){
+        match (PHP_OS_FAMILY) {
             'Darwin' => exec("open $repo"),
             'Windows' => exec("start $repo"),
             'Linux' => exec("xdg-open $repo"),

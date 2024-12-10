@@ -10,9 +10,6 @@ class LaraPrimeRequest extends FormRequest
 {
     /**
      * Create an Illuminate request from a Symfony instance.
-     *
-     * @param SymfonyRequest $request
-     * @return static
      */
     public static function createFromBase(SymfonyRequest $request): static
     {

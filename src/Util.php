@@ -9,9 +9,6 @@ class Util
 {
     /**
      * Determine if the given request is intended for LaraPrime.
-     *
-     * @param  Request  $request
-     * @return bool
      */
     public static function isLaraPrimeRequest(Request $request): bool
     {

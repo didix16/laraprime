@@ -16,12 +16,14 @@ class DevCommand extends Command
 {
     /**
      * The console command signature.
+     *
      * @var string
      */
-    protected  $signature = 'laraprime:dev {--force : Overwrite LaraPrimeProvider to original state and apply dev patches}';
+    protected $signature = 'laraprime:dev {--force : Overwrite LaraPrimeProvider to original state and apply dev patches}';
 
     /**
      * The console command description.
+     *
      * @var string
      */
     protected $description = 'Prepare LaraPrime for development environment';
@@ -36,7 +38,6 @@ class DevCommand extends Command
 
     /**
      * Execute the console command.
-     * @return void
      */
     public function handle(): void
     {
@@ -45,30 +46,31 @@ class DevCommand extends Command
             $this->warn('Remember that this Laravel app is only for development🔬 purposes!');
 
             $force = $this->option('force');
-            if($force){
+            if ($force) {
                 $this->info('Forcing LaraPrimeProvider modification...');
                 $this
                     ->executeCommand('vendor:publish', [
                         '--provider' => LaraPrimeServiceProvider::class,
-                        '--tag'      => [
+                        '--tag' => [
                             'laraprime-app-stubs',
                         ],
-                        '--force' => true
+                        '--force' => true,
                     ]);
 
             }
 
             // Check if we have to modify LaraPrimeProvider
             $this->info('Checking LaraPrimeProvider...');
-            if(!file_exists(app_path('LaraPrime/LaraPrimeProvider.php'))){
+            if (! file_exists(app_path('LaraPrime/LaraPrimeProvider.php'))) {
                 $this->error('LaraPrimeProvider not found ❌');
+
                 return;
             }
 
             $this->providerContent = file_get_contents(app_path('LaraPrime/LaraPrimeProvider.php'));
 
             if (
-                !$force &&
+                ! $force &&
                 str_contains($this->providerContent, 'Didix16\LaraPrime\Decorators\ViteDecorator') &&
                 str_contains($this->providerContent, 'Illuminate\Foundation\Vite') &&
                 str_contains($this->providerContent, '$this->app->bind(Vite::class, function ($app) {') &&
@@ -78,6 +80,7 @@ class DevCommand extends Command
             ) {
                 $this->info('LaraPrimeProvider seems already modified ✅');
                 $this->showReminder();
+
                 return;
             }
 
@@ -95,29 +98,28 @@ class DevCommand extends Command
         $parser = $this->parserFactory->createForNewestSupportedVersion();
         try {
             $ast = $parser->parse($this->providerContent);
-            $traverser = new NodeTraverser();
-            $traverser->addVisitor(new class($this) extends NodeVisitorAbstract {
-
-                public function __construct(protected DevCommand $command)
-                {
-                }
+            $traverser = new NodeTraverser;
+            $traverser->addVisitor(new class($this) extends NodeVisitorAbstract
+            {
+                public function __construct(protected DevCommand $command) {}
 
                 public function leaveNode(Node $node)
                 {
-                    if($node instanceof Node\Stmt\Use_ && $node->uses[0]->name->name === 'Didix16\LaraPrime\LaraPrimeAppServiceProvider'){
+                    if ($node instanceof Node\Stmt\Use_ && $node->uses[0]->name->name === 'Didix16\LaraPrime\LaraPrimeAppServiceProvider') {
                         return [
                             $node,
                             new Node\Stmt\Use_([new Node\UseItem(new Node\Name('Didix16\LaraPrime\Decorators\ViteDecorator'))]),
-                            new Node\Stmt\Use_([new Node\UseItem(new Node\Name('Illuminate\Foundation\Vite'))])
+                            new Node\Stmt\Use_([new Node\UseItem(new Node\Name('Illuminate\Foundation\Vite'))]),
                         ];
                     }
+
                     return null;
                 }
 
                 public function enterNode(Node $node)
                 {
 
-                    if($node instanceof Node\Stmt\ClassMethod && $node->name->name === 'register'){
+                    if ($node instanceof Node\Stmt\ClassMethod && $node->name->name === 'register') {
 
                         $code = <<<'CODE'
 <?php
@@ -129,11 +131,12 @@ if (is_file(public_path('vendor/laraprime/hot'))) {
 }
 CODE;
 
-                        $parser = (new ParserFactory())->createForNewestSupportedVersion();
+                        $parser = (new ParserFactory)->createForNewestSupportedVersion();
                         try {
                             $ast = $parser->parse($code);
                         } catch (Error $error) {
                             $this->command->error(sprintf('Error parsing LaraPrimeProvider file: %s', $error->getMessage()));
+
                             return;
                         }
 
@@ -144,16 +147,16 @@ CODE;
 
             $ast = $traverser->traverse($ast);
 
-            $prettyPrinter = new \PhpParser\PrettyPrinter\Standard();
+            $prettyPrinter = new \PhpParser\PrettyPrinter\Standard;
             $writed = file_put_contents($providerPath, $prettyPrinter->prettyPrintFile($ast));
-            if($writed){
+            if ($writed) {
                 $this->info('LaraPrimeProvider modified successfully! ✅');
                 $this->showReminder();
 
-            }else{
+            } else {
                 $this->error('Error modifying LaraPrimeProvider ❌');
             }
-        }catch (Error $error){
+        } catch (Error $error) {
             $this->error(sprintf('Error parsing LaraPrimeProvider file: %s', $error->getMessage()));
         }
 

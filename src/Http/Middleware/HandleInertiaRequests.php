@@ -23,7 +23,8 @@ class HandleInertiaRequests extends Middleware
      *
      * @return string|null
      */
-    public function version(Request $request){
+    public function version(Request $request)
+    {
         return sprintf('%s:%s', $this->rootView, parent::version($request));
     }
 
@@ -32,21 +33,19 @@ class HandleInertiaRequests extends Middleware
      *
      * @see https://inertiajs.com/shared-data
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function share(Request $request)
     {
         return array_merge(parent::share($request), [
-            'primeConfig' => function () use ($request) {
+            'primeConfig' => function () {
                 return [];
             },
-//            'currentUser' => function () use ($request) {
-//                return with(LaraPrime::user($request), function ($user) use ($request) {
-//                    return ! is_null($user) ? UserResource::make($user)->toArray($request) : null;
-//                });
-//            },
+            //            'currentUser' => function () use ($request) {
+            //                return with(LaraPrime::user($request), function ($user) use ($request) {
+            //                    return ! is_null($user) ? UserResource::make($user)->toArray($request) : null;
+            //                });
+            //            },
         ]);
     }
-
 }

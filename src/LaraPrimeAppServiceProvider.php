@@ -3,7 +3,6 @@
 namespace Didix16\LaraPrime;
 
 use Illuminate\Contracts\Foundation\CachesRoutes;
-use Illuminate\Foundation\Vite;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
@@ -14,12 +13,10 @@ use Illuminate\Support\ServiceProvider;
  */
 abstract class LaraPrimeAppServiceProvider extends ServiceProvider
 {
-    public function register(): void
-    {
-    }
+    public function register(): void {}
+
     /**
      * Boot the application events.
-     * @return void
      */
     public function boot(): void
     {
@@ -31,13 +28,8 @@ abstract class LaraPrimeAppServiceProvider extends ServiceProvider
 
     /**
      * Define routes at service provider boot time.
-     * @param Router $router
-     * @return void
      */
-    protected function routes(Router $router): void
-    {
-
-    }
+    protected function routes(Router $router): void {}
 
     /**
      * Define routes for the dashboard.

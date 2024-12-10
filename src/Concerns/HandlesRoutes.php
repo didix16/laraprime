@@ -9,9 +9,6 @@ trait HandlesRoutes
 {
     /**
      * Get url for LaraPrime.
-     *
-     * @param  string  $url
-     * @return string
      */
     public static function url(string $url): string
     {
@@ -21,9 +18,7 @@ trait HandlesRoutes
     /**
      * Get Route Registrar for LaraPrime.
      *
-     * @param array<int, class-string|string>|null $middleware
-     * @param string|null $prefix
-     * @return RouteRegistrar
+     * @param  array<int, class-string|string>|null  $middleware
      */
     public static function router(?array $middleware = null, ?string $prefix = null): RouteRegistrar
     {

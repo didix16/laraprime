@@ -2,9 +2,9 @@
 
 namespace Didix16\LaraPrime\Tests;
 
+use Didix16\LaraPrime\LaraPrimeMainServiceProvider;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Orchestra\Testbench\TestCase as Orchestra;
-use Didix16\LaraPrime\LaraPrimeMainServiceProvider;
 
 class TestCase extends Orchestra
 {

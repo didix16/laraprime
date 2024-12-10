@@ -11,9 +11,6 @@ class HomeController extends Controller
 {
     /**
      * Show the LaraPrime homepage.
-     *
-     * @param Request $request
-     * @return RedirectResponse
      */
     public function index(Request $request): RedirectResponse
     {

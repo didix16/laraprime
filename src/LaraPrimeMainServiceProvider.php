@@ -9,10 +9,10 @@ use Didix16\LaraPrime\Listeners\BootLaraPrime;
 use Illuminate\Container\Container;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\Http\Kernel as HttpKernel;
 use Illuminate\Foundation\Http\Events\RequestHandled;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Contracts\Http\Kernel as HttpKernel;
 
 class LaraPrimeMainServiceProvider extends ServiceProvider
 {
@@ -46,16 +46,11 @@ class LaraPrimeMainServiceProvider extends ServiceProvider
             ->registerJsonVariables();
     }
 
-    public function register()
-    {
-
-    }
-
+    public function register() {}
 
     /**
      * Register the package events.
      *
-     * @return self
      * @throws BindingResolutionException
      */
     protected function registerEvents(): self
@@ -69,8 +64,6 @@ class LaraPrimeMainServiceProvider extends ServiceProvider
 
     /**
      * Register the LaraPrime package json variables to pass through to LaraPrime javascript instance.
-     *
-     * @return self
      */
     protected function registerJsonVariables(): self
     {

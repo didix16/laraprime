@@ -15,9 +15,7 @@ class DispatchServingLaraPrimeEvent
     /**
      * Handle the incoming request.
      *
-     * @param  Request  $request
      * @param  Closure(Request):mixed  $next
-     * @return Response
      */
     public function handle(Request $request, Closure $next): Response
     {

@@ -11,8 +11,8 @@ class Authorize
     /**
      * Handle an incoming request.
      * Check if the request is authorized to access LaraPrime admin panel
-     * @param Request $request
-     * @param Closure(Request):mixed $next
+     *
+     * @param  Closure(Request):mixed  $next
      * @return void
      */
     public function handle(Request $request, Closure $next)

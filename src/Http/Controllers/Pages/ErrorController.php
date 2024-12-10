@@ -9,7 +9,6 @@ class ErrorController extends Controller
 {
     /**
      * Show LaraPrime 403 page using Inertia.
-     * @return void
      */
     public function throw403(): void
     {
@@ -18,7 +17,6 @@ class ErrorController extends Controller
 
     /**
      * Show LaraPrime 404 page using Inertia.
-     * @return void
      */
     public function throw404(): void
     {

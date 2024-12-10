@@ -107,5 +107,5 @@ return [
      | You can also create your own theme and place it in the public/themes directory
      | and set the name here.
      */
-    'theme' => 'lara-light-cyan'
+    'theme' => 'lara-light-cyan',
 ];

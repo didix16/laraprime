@@ -10,7 +10,6 @@ class BootLaraPrime
     /**
      * Handle the event.
      *
-     * @param  LaraPrimeServiceProviderRegistered  $event
      * @return void
      */
     public function handle(LaraPrimeServiceProviderRegistered $event)
@@ -20,13 +19,10 @@ class BootLaraPrime
 
     /**
      * Handle the event.
-     *
-     * @param  LaraPrimeServiceProviderRegistered  $event
-     * @return void
      */
     public function __invoke(LaraPrimeServiceProviderRegistered $event): void
     {
-        if (!app()->providerIsLoaded(LaraPrimeServiceProvider::class)) {
+        if (! app()->providerIsLoaded(LaraPrimeServiceProvider::class)) {
             app()->register(LaraPrimeServiceProvider::class);
         }
         // register here LaraPrime resources and tools

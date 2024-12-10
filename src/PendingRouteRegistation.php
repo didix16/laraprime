@@ -12,8 +12,6 @@ class PendingRouteRegistation
 {
     /**
      * Indicates if the routes have been registered.
-     *
-     * @var bool
      */
     protected bool $registered = false;
 
@@ -49,8 +47,6 @@ class PendingRouteRegistation
 
     /**
      * Register the LaraPrime routes.
-     *
-     * @return void
      */
     public function register(): void
     {

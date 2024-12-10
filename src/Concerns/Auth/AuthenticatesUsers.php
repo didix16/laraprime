@@ -21,8 +21,6 @@ trait AuthenticatesUsers
 
     /**
      * Show the application's login form.
-     *
-     * @return View
      */
     public function showLoginForm(): View
     {
@@ -32,8 +30,6 @@ trait AuthenticatesUsers
     /**
      * Handle a login request to the application.
      *
-     * @param Request $request
-     * @return Response
      *
      * @throws ValidationException
      */
@@ -70,8 +66,6 @@ trait AuthenticatesUsers
     /**
      * Validate the user login request.
      *
-     * @param Request $request
-     * @return void
      *
      * @throws ValidationException
      */
@@ -85,9 +79,6 @@ trait AuthenticatesUsers
 
     /**
      * Attempt to log the user into the application.
-     *
-     * @param Request $request
-     * @return bool
      */
     protected function attemptLogin(Request $request): bool
     {
@@ -98,9 +89,6 @@ trait AuthenticatesUsers
 
     /**
      * Get the needed authorization credentials from the request.
-     *
-     * @param Request $request
-     * @return array
      */
     protected function credentials(Request $request): array
     {
@@ -109,9 +97,6 @@ trait AuthenticatesUsers
 
     /**
      * Send the response after the user was authenticated.
-     *
-     * @param Request $request
-     * @return RedirectResponse|JsonResponse
      */
     protected function sendLoginResponse(Request $request): JsonResponse|RedirectResponse
     {
@@ -131,17 +116,13 @@ trait AuthenticatesUsers
     /**
      * The user has been authenticated.
      *
-     * @param Request $request
      * @param  mixed  $user
-     * @return mixed
      */
-    abstract function authenticated(Request $request, $user): mixed;
+    abstract public function authenticated(Request $request, $user): mixed;
 
     /**
      * Get the failed login response instance.
      *
-     * @param Request $request
-     * @return Response
      *
      * @throws ValidationException
      */
@@ -154,8 +135,6 @@ trait AuthenticatesUsers
 
     /**
      * Get the login username to be used by the controller.
-     *
-     * @return string
      */
     public function username(): string
     {
@@ -164,9 +143,6 @@ trait AuthenticatesUsers
 
     /**
      * Log the user out of the application.
-     *
-     * @param Request $request
-     * @return RedirectResponse|JsonResponse
      */
     public function logout(Request $request): JsonResponse|RedirectResponse
     {
@@ -187,9 +163,6 @@ trait AuthenticatesUsers
 
     /**
      * The user has logged out of the application.
-     *
-     * @param Request $request
-     * @return Response|null
      */
     protected function loggedOut(Request $request): ?Response
     {
@@ -199,8 +172,6 @@ trait AuthenticatesUsers
 
     /**
      * Get the guard to be used during authentication.
-     *
-     * @return StatefulGuard
      */
     protected function guard(): StatefulGuard
     {

@@ -41,8 +41,6 @@ class LoginController extends Controller
 
     /**
      * Show the application's login form.
-     *
-     * @return Response|\Symfony\Component\HttpFoundation\Response
      */
     public function showLoginForm(): Response|\Symfony\Component\HttpFoundation\Response
     {
@@ -56,9 +54,7 @@ class LoginController extends Controller
     /**
      * The user has been authenticated.
      *
-     * @param Request $request
      * @param  mixed  $user
-     * @return JsonResponse|RedirectResponse
      */
     protected function authenticated(Request $request, $user): JsonResponse|RedirectResponse
     {
@@ -73,9 +69,6 @@ class LoginController extends Controller
 
     /**
      * Log the user out of the application.
-     *
-     * @param Request $request
-     * @return RedirectResponse
      */
     public function logout(Request $request): RedirectResponse
     {
@@ -88,8 +81,6 @@ class LoginController extends Controller
 
     /**
      * Get the post register / login redirect path.
-     *
-     * @return string
      */
     public function redirectPath(): string
     {
@@ -98,8 +89,6 @@ class LoginController extends Controller
 
     /**
      * Get the guard to be used during authentication.
-     *
-     * @return StatefulGuard
      */
     protected function guard(): StatefulGuard
     {

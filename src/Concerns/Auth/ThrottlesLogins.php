@@ -17,9 +17,6 @@ trait ThrottlesLogins
 {
     /**
      * Determine if the user has too many failed login attempts.
-     *
-     * @param Request $request
-     * @return bool
      */
     protected function hasTooManyLoginAttempts(Request $request): bool
     {
@@ -30,9 +27,6 @@ trait ThrottlesLogins
 
     /**
      * Increment the login attempts for the user.
-     *
-     * @param Request $request
-     * @return void
      */
     protected function incrementLoginAttempts(Request $request): void
     {
@@ -44,8 +38,6 @@ trait ThrottlesLogins
     /**
      * Redirect the user after determining they are locked out.
      *
-     * @param Request $request
-     * @return ResponseAlias
      *
      * @throws ValidationException
      */
@@ -65,9 +57,6 @@ trait ThrottlesLogins
 
     /**
      * Clear the login locks for the given user credentials.
-     *
-     * @param Request $request
-     * @return void
      */
     protected function clearLoginAttempts(Request $request): void
     {
@@ -76,9 +65,6 @@ trait ThrottlesLogins
 
     /**
      * Fire an event when a lockout occurs.
-     *
-     * @param Request $request
-     * @return void
      */
     protected function fireLockoutEvent(Request $request): void
     {
@@ -87,9 +73,6 @@ trait ThrottlesLogins
 
     /**
      * Get the throttle key for the given request.
-     *
-     * @param Request $request
-     * @return string
      */
     protected function throttleKey(Request $request): string
     {
@@ -98,8 +81,6 @@ trait ThrottlesLogins
 
     /**
      * Get the rate limiter instance.
-     *
-     * @return RateLimiter
      */
     protected function limiter(): RateLimiter
     {
@@ -108,8 +89,6 @@ trait ThrottlesLogins
 
     /**
      * Get the maximum number of attempts to allow.
-     *
-     * @return int
      */
     public function maxAttempts(): int
     {
@@ -118,8 +97,6 @@ trait ThrottlesLogins
 
     /**
      * Get the number of minutes to throttle for.
-     *
-     * @return int
      */
     public function decayMinutes(): int
     {

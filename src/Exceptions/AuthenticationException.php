@@ -14,9 +14,6 @@ class AuthenticationException extends BaseAuthenticationException
 {
     /**
      * Render the exception as an HTTP response.
-     *
-     * @param  Request  $request
-     * @return Response|JsonResponse|\Illuminate\Http\Response
      */
     public function render(Request $request): Response|JsonResponse|\Illuminate\Http\Response
     {
@@ -30,7 +27,7 @@ class AuthenticationException extends BaseAuthenticationException
             return response(null, Response::HTTP_UNAUTHORIZED);
         }
 
-        if($request->inertia() || config('laraprime.routes.login', false) !== false){
+        if ($request->inertia() || config('laraprime.routes.login', false) !== false) {
             return $this->redirectForInertia($request);
         }
 
@@ -51,8 +48,7 @@ class AuthenticationException extends BaseAuthenticationException
     /**
      * Redirect request for Inertia.
      *
-     * @param Request $request
-     * @return Response
+     * @param  Request  $request
      */
     protected function redirectForInertia($request): Response
     {

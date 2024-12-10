@@ -14,14 +14,15 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 use Throwable;
 
-class LaraPrime {
-
-    use Concerns\InteractsWithEvents;
+class LaraPrime
+{
     use Concerns\AuthorizesRequests;
     use Concerns\HandlesRoutes;
+    use Concerns\InteractsWithEvents;
 
     /**
      * All available themes from primereact
+     *
      * @var array<string, mixed>
      */
     public static array $themes = [
@@ -34,7 +35,7 @@ class LaraPrime {
                 'green',
                 'orange',
                 'purple',
-            ]
+            ],
         ],
 
         'bootstrap4' => [
@@ -44,7 +45,7 @@ class LaraPrime {
             'themes' => [
                 'blue',
                 'purple',
-            ]
+            ],
         ],
         'fluent-light' => [
             'name' => 'Fluent Light',
@@ -75,7 +76,7 @@ class LaraPrime {
                 'blue',
                 'green',
                 'pink',
-            ]
+            ],
         ],
         'md' => [
             'name' => 'Material Design',
@@ -84,7 +85,7 @@ class LaraPrime {
             'themes' => [
                 'deeppurple',
                 'indigo',
-            ]
+            ],
         ],
         'mdc' => [
             'name' => 'Material Design Compact',
@@ -93,7 +94,7 @@ class LaraPrime {
             'themes' => [
                 'deeppurple',
                 'indigo',
-            ]
+            ],
         ],
         'mira' => [
             'name' => 'Mira',
@@ -129,7 +130,7 @@ class LaraPrime {
                 'green',
                 'orange',
                 'purple',
-            ]
+            ],
         ],
         'soho' => [
             'name' => 'Soho',
@@ -150,15 +151,14 @@ class LaraPrime {
                 'green',
                 'orange',
                 'purple',
-            ]
+            ],
         ],
         'viva' => [
             'name' => 'Viva',
             'hasDark' => true,
             'hasFonts' => true,
-        ]
+        ],
     ];
-
 
     /**
      * The variables that should be made available on the LaraPrime JavaScript object.
@@ -169,15 +169,11 @@ class LaraPrime {
 
     /**
      * The initial path LaraPrime should route to when visiting the base.
-     *
-     * @var string
      */
     public static string $initialPath = '/main';
 
     /**
      * Indicates if LaraPrime is being used to authenticate users.
-     *
-     * @var bool
      */
     public static bool $withAuthentication = false;
 
@@ -188,20 +184,18 @@ class LaraPrime {
      */
     public static $footerCallback;
 
-    final public function __construct() { }
+    final public function __construct() {}
 
     /**
      * Get the specified theme data.
-     * @param string $themeFamily
-     * @return array|null
      */
-    public static function theme(string $themeFamily): ?array {
+    public static function theme(string $themeFamily): ?array
+    {
         return self::$themes[$themeFamily] ?? null;
     }
 
     /**
      * Get the default theme for LaraPrime.
-     * @return string
      */
     public static function defaultTheme(): string
     {
@@ -210,17 +204,16 @@ class LaraPrime {
 
     /**
      * Get the public path to a theme.
-     * @param $themeSlug
-     * @return string
      */
-    public static function publicThemePath($themeSlug): string {
+    public static function publicThemePath($themeSlug): string
+    {
         return public_path(sprintf('vendor/laraprime/themes/%s', $themeSlug));
     }
 
     /**
      * List all available themes.
      * If $installed is true, only installed themes will be listed.
-     * @param bool $installed
+     *
      * @return Collection<string, array>
      */
     public static function listThemes(bool $installed = false): Collection
@@ -234,66 +227,66 @@ class LaraPrime {
 
                 $themeFamilyTitle = Str::title($themeFamily);
 
-                if($hasDark && $hasThemes){
+                if ($hasDark && $hasThemes) {
                     foreach ($theme['themes'] as $subTheme) {
                         $themeName = $themeFamily.'-dark-'.$subTheme;
-                        if(File::exists(static::publicThemePath($themeName) . '/theme.css')){
+                        if (File::exists(static::publicThemePath($themeName).'/theme.css')) {
                             $themes[$themeName] = [
                                 'family' => $themeFamilyTitle,
                                 'name' => Str::title(Str::replace('-', ' ', $themeFamily.'-'.$subTheme)),
                                 'subTheme' => $subTheme,
-                                'hasVariance' => false
+                                'hasVariance' => false,
                             ];
                         }
                         $themeName = $themeFamily.'-light-'.$subTheme;
-                        if(File::exists(static::publicThemePath($themeName) . '/theme.css')){
+                        if (File::exists(static::publicThemePath($themeName).'/theme.css')) {
                             $themes[$themeName] = [
                                 'family' => $themeFamilyTitle,
                                 'name' => Str::title(Str::replace('-', ' ', $themeFamily.'-'.$subTheme)),
                                 'subTheme' => $subTheme,
-                                'hasVariance' => false
+                                'hasVariance' => false,
                             ];
                         }
                     }
-                } else if ($hasThemes){
+                } elseif ($hasThemes) {
                     foreach ($theme['themes'] as $subTheme) {
                         $themeName = $themeFamily.'-'.$subTheme;
-                        if(File::exists(static::publicThemePath($themeName) . '/theme.css')){
+                        if (File::exists(static::publicThemePath($themeName).'/theme.css')) {
                             $themes[$themeName] = [
                                 'family' => $themeFamilyTitle,
                                 'name' => Str::title(Str::replace('-', ' ', $themeFamily.'-'.$subTheme)),
                                 'subTheme' => $subTheme,
-                                'hasVariance' => false
+                                'hasVariance' => false,
                             ];
                         }
                     }
-                } else if($hasDark) {
+                } elseif ($hasDark) {
                     $themeName = $themeFamily.'-dark';
-                    if(File::exists(static::publicThemePath($themeName) . '/theme.css')){
+                    if (File::exists(static::publicThemePath($themeName).'/theme.css')) {
                         $themes[$themeName] = [
                             'family' => $themeFamilyTitle,
                             'name' => Str::title(Str::replace('-', ' ', $themeFamily.'-dark')),
                             'subTheme' => null,
-                            'hasVariance' => true
+                            'hasVariance' => true,
                         ];
                     }
                     $themeName = $themeFamily.'-light';
-                    if(File::exists(static::publicThemePath($themeName) . '/theme.css')){
+                    if (File::exists(static::publicThemePath($themeName).'/theme.css')) {
                         $themes[$themeName] = [
                             'family' => $themeFamilyTitle,
                             'name' => Str::title(Str::replace('-', ' ', $themeFamily.'-light')),
                             'subTheme' => null,
-                            'hasVariance' => true
+                            'hasVariance' => true,
                         ];
                     }
-                }else {
+                } else {
                     $themeName = $themeFamily;
-                    if(File::exists(static::publicThemePath($themeName) . '/theme.css')){
+                    if (File::exists(static::publicThemePath($themeName).'/theme.css')) {
                         $themes[$themeFamily] = [
                             'family' => $themeFamilyTitle,
                             'name' => Str::title(Str::replace('-', ' ', $themeFamily)),
                             'subTheme' => null,
-                            'hasVariance' => false
+                            'hasVariance' => false,
                         ];
 
                     }
@@ -307,49 +300,49 @@ class LaraPrime {
 
                 $themes = [];
                 $themeFamilyTitle = Str::title($themeFamily);
-                if($hasDark && $hasThemes){
+                if ($hasDark && $hasThemes) {
                     foreach ($theme['themes'] as $subTheme) {
                         $themes[$themeFamily.'-dark-'.$subTheme] = [
                             'family' => $themeFamilyTitle,
                             'name' => Str::title(Str::replace('-', ' ', $themeFamily.'-dark-'.$subTheme)),
                             'subTheme' => $subTheme,
-                            'hasVariance' => true
+                            'hasVariance' => true,
                         ];
                         $themes[$themeFamily.'-light-'.$subTheme] = [
                             'family' => $themeFamilyTitle,
                             'name' => Str::title(Str::replace('-', ' ', $themeFamily.'-light-'.$subTheme)),
                             'subTheme' => $subTheme,
-                            'hasVariance' => true
+                            'hasVariance' => true,
                         ];
                     }
-                } else if ($hasThemes){
+                } elseif ($hasThemes) {
                     foreach ($theme['themes'] as $subTheme) {
                         $themes[$themeFamily.'-'.$subTheme] = [
                             'family' => $themeFamilyTitle,
                             'name' => Str::title(Str::replace('-', ' ', $themeFamily.'-'.$subTheme)),
                             'subTheme' => $subTheme,
-                            'hasVariance' => false
+                            'hasVariance' => false,
                         ];
                     }
-                } else if($hasDark) {
+                } elseif ($hasDark) {
                     $themes[$themeFamily.'-dark'] = [
                         'family' => $themeFamilyTitle,
                         'name' => Str::title(Str::replace('-', ' ', $themeFamily.'-dark')),
                         'subTheme' => null,
-                        'hasVariance' => true
+                        'hasVariance' => true,
                     ];
                     $themes[$themeFamily.'-light'] = [
                         'family' => $themeFamilyTitle,
                         'name' => Str::title(Str::replace('-', ' ', $themeFamily.'-light')),
                         'subTheme' => null,
-                        'hasVariance' => true
+                        'hasVariance' => true,
                     ];
                 } else {
                     $themes[$themeFamily] = [
                         'family' => $themeFamilyTitle,
                         'name' => Str::title(Str::replace('-', ' ', $themeFamily)),
                         'subTheme' => null,
-                        'hasVariance' => false
+                        'hasVariance' => false,
                     ];
                 }
 
@@ -359,19 +352,16 @@ class LaraPrime {
 
     /**
      * Read a meta key from the LaraPrime composer manifest.
-     * @param string $metaKey
-     * @return string|null
      */
-    private static function readMetaKeyFromComposerManifest(string $metaKey): ?string {
-        $manifest = json_decode(File::get( self::packagePath('composer.json')), true);
+    private static function readMetaKeyFromComposerManifest(string $metaKey): ?string
+    {
+        $manifest = json_decode(File::get(self::packagePath('composer.json')), true);
 
         return $manifest[$metaKey] ?? null;
     }
 
     /**
      * Get the LaraPrime repository URL.
-     *
-     * @return string
      */
     public static function repo(): string
     {
@@ -380,22 +370,19 @@ class LaraPrime {
 
     /**
      * Get the current LaraPrime version.
-     *
-     * @return string
      */
     public static function version(): string
     {
         return Cache::driver('array')->rememberForever('laraprime.version', function () {
 
             $version = self::readMetaKeyFromComposerManifest('version') ?? '1.x';
+
             return $version.' (Optimus Prime)';
         });
     }
 
     /**
      * Get the app name utilized by LaraPrime.
-     *
-     * @return string
      */
     public static function name(): string
     {
@@ -404,8 +391,6 @@ class LaraPrime {
 
     /**
      * Get the URI path prefix utilized by Nova.
-     *
-     * @return string
      */
     public static function path(): string
     {
@@ -424,31 +409,27 @@ class LaraPrime {
 
     /**
      * Register the LaraPrime routes.
-     *
-     * @return PendingRouteRegistation
      */
     public static function routes(): PendingRouteRegistation
     {
         Route::aliasMiddleware('laraprime.guest', RedirectIfAuthenticated::class);
+
         return new PendingRouteRegistation;
     }
 
     /**
      * Enable LaraPrime's authentication functionality.
-     *
-     * @return static
      */
     public static function withAuthentication(): static
     {
         static::$withAuthentication = true;
 
-        return new static();
+        return new static;
     }
 
     /**
      * Get the JSON variables that should be provided to the global Nova JavaScript object.
      *
-     * @param Request $request
      * @return array<string, mixed>
      */
     public static function jsonVariables(Request $request): array
@@ -462,22 +443,18 @@ class LaraPrime {
 
     /**
      * Set the initial route path when visiting the base LaraPrime url.
-     *
-     * @param  string  $path
-     * @return static
      */
     public static function initialPath(string $path): static
     {
         static::$initialPath = $path;
 
-        return new static();
+        return new static;
     }
 
     /**
      * Provide additional variables to the global LaraPrime JavaScript object.
      *
      * @param  array<string, mixed>  $variables
-     * @return static
      */
     public static function provideToScript(array $variables): static
     {
@@ -499,14 +476,11 @@ class LaraPrime {
 
         static::$jsonVariables = array_merge(static::$jsonVariables, $variables);
 
-        return new static();
+        return new static;
     }
 
     /**
      * Resolve the footer used for LaraPrime.
-     *
-     * @param Request $request
-     * @return string
      */
     public static function resolveFooter(Request $request): string
     {
@@ -519,9 +493,6 @@ class LaraPrime {
 
     /**
      * Resolve the default footer text used for Nova.
-     *
-     * @param Request $request
-     * @return string
      */
     public static function defaultFooter(Request $request): string
     {
@@ -536,7 +507,7 @@ class LaraPrime {
 
     /**
      * Determine if the published LaraPrime assets are up to date.
-     * @return bool
+     *
      * @throws Throwable
      */
     public static function assetsAreCurrent(): bool

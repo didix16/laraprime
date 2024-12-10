@@ -23,8 +23,6 @@ class LaraPrimeProvider extends LaraPrimeAppServiceProvider
 
     /**
      * Define routes at service provider boot time.
-     * @param Router $router
-     * @return void
      */
     public function routes(Router $router): void
     {

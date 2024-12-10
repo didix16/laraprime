@@ -18,7 +18,6 @@ trait AuthorizesRequests
      * Register the Nova authentication callback.
      *
      * @param  Closure(Request):bool  $callback
-     * @return static
      */
     public static function auth(Closure $callback): static
     {
@@ -30,7 +29,6 @@ trait AuthorizesRequests
     /**
      * Determine if the given request can access the Nova dashboard.
      *
-     * @param  Request  $request
      * @return bool
      */
     public static function check(Request $request)

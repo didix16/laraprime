@@ -15,7 +15,6 @@ class LaraPrimeServiceProvider extends ServiceProvider
 {
     /**
      * The available commands only when running in console.
-     * @var array
      */
     protected array $consoleCommands = [
         InstallCommand::class,
@@ -26,12 +25,11 @@ class LaraPrimeServiceProvider extends ServiceProvider
 
     /**
      * The available global commands (console and web).
-     * @var array
      */
     protected array $globalCommands = [];
+
     /**
      * Bootstrap the package services.
-     * @return void
      */
     public function boot(): void
     {
@@ -39,12 +37,12 @@ class LaraPrimeServiceProvider extends ServiceProvider
             ->registerViews()
             ->registerTranslations();
 
-        if($this->app->runningInConsole()) {
+        if ($this->app->runningInConsole()) {
 
             AboutCommand::add('LaraPrime', fn () => [
-                'Version'       => LaraPrime::version(),
-                'Domain'        => config('laraprime.domain'),
-                'Prefix'        => config('laraprime.prefix'),
+                'Version' => LaraPrime::version(),
+                'Domain' => config('laraprime.domain'),
+                'Prefix' => config('laraprime.prefix'),
                 'Assets Status' => LaraPrime::assetsAreCurrent() ? '<fg=green;options=bold>CURRENT</>' : '<fg=yellow;options=bold>OUTDATED</>',
             ]);
 
@@ -61,6 +59,7 @@ class LaraPrimeServiceProvider extends ServiceProvider
             ->registerRoutes()
             ->commands($this->globalCommands);
     }
+
     public function register(): void
     {
 
@@ -87,7 +86,6 @@ class LaraPrimeServiceProvider extends ServiceProvider
 
     /**
      * Register config publishing.
-     * @return self
      */
     protected function registerConfigPublisher(): self
     {
@@ -107,7 +105,6 @@ class LaraPrimeServiceProvider extends ServiceProvider
         return $this;
     }
 
-
     /**
      * Register translations.
      *
@@ -124,6 +121,7 @@ class LaraPrimeServiceProvider extends ServiceProvider
 
     /**
      * Register LaraPrime to the application.
+     *
      * @return $this
      */
     protected function registerLaraPrimePublisher(): self
@@ -138,6 +136,7 @@ class LaraPrimeServiceProvider extends ServiceProvider
 
     /**
      * Register the asset publishing configuration.
+     *
      * @return $this
      */
     protected function registerAssetsPublisher(): self
@@ -165,7 +164,6 @@ class LaraPrimeServiceProvider extends ServiceProvider
 
     /**
      * Register the package translations.
-     * @return self
      */
     public function registerTranslations(): self
     {
@@ -176,8 +174,6 @@ class LaraPrimeServiceProvider extends ServiceProvider
 
     /**
      * Register the package routes.
-     *
-     * @return self
      */
     protected function registerRoutes(): self
     {

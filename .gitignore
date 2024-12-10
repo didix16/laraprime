@@ -12,7 +12,7 @@ yarn-error.log
 # Caches
 .phpunit.cache
 .phpunit.result.cache
-/build
+/phpstan
 
 # IDE Helper
 _ide_helper.php
@@ -30,3 +30,16 @@ phpstan.neon
 testbench.yaml
 /docs
 /coverage
+
+# Yarn / NPM
+/.yarn
+.pnp.loader.mjs
+.pnp.js
+.pnp.cjs
+/**/.pnp.loader.mjs
+/**/.pnp.js
+/**/.pnp.cjs
+/resources/.yarn
+/**/npm-debug.log
+/**/yarn-error.log
+public/hot

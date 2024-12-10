@@ -1,29 +1,37 @@
 {
-    "name": ":vendor_slug/:package_slug",
-    "description": ":package_description",
+    "name": "didix16/laraprime",
+    "description": "An open source admin panel like Laravel Nova but using React + PrimeReact as frontend",
     "keywords": [
-        ":vendor_name",
+        "didix16",
+        "Didix16",
         "laravel",
-        ":package_slug"
+        "laraprime",
+        "primereact",
+        "react",
+        "frontend",
+        "admin"
     ],
-    "homepage": "https://github.com/:vendor_slug/:package_slug",
+    "homepage": "https://github.com/didix16/laraprime",
     "license": "MIT",
     "authors": [
         {
-            "name": ":author_name",
-            "email": "author@domain.com",
+            "name": "Dídac Rodríguez",
+            "email": "drodriguez816@gmail.com",
             "role": "Developer"
         }
     ],
     "require": {
-        "php": "^8.4",
-        "spatie/laravel-package-tools": "^1.16",
-        "illuminate/contracts": "^10.0||^11.0"
+        "php": "^8.2",
+        "illuminate/contracts": "^11.0",
+        "inertiajs/inertia-laravel": "^1.3",
+        "spatie/laravel-package-tools": "^1.16"
     },
     "require-dev": {
-        "laravel/pint": "^1.14",
-        "nunomaduro/collision": "^8.1.1||^7.10.0",
         "larastan/larastan": "^2.9",
+        "laravel/pint": "^1.14",
+        "mockery/mockery": "^1.5",
+        "nikic/php-parser": "^5.3",
+        "nunomaduro/collision": "^8.1.1||^7.10.0",
         "orchestra/testbench": "^9.0.0||^8.22.0",
         "pestphp/pest": "^3.0",
         "pestphp/pest-plugin-arch": "^3.0",
@@ -31,17 +39,17 @@
         "phpstan/extension-installer": "^1.3",
         "phpstan/phpstan-deprecation-rules": "^1.1",
         "phpstan/phpstan-phpunit": "^1.3",
-        "spatie/laravel-ray": "^1.35"
+        "spatie/pest-plugin-test-time": "^2.2"
     },
     "autoload": {
         "psr-4": {
-            "VendorName\\Skeleton\\": "src/",
-            "VendorName\\Skeleton\\Database\\Factories\\": "database/factories/"
+            "Didix16\\LaraPrime\\": "src/",
+            "Didix16\\LaraPrime\\Database\\Factories\\": "database/factories/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "VendorName\\Skeleton\\Tests\\": "tests/",
+            "Didix16\\LaraPrime\\Tests\\": "tests/",
             "Workbench\\App\\": "workbench/app/"
         }
     },
@@ -63,13 +71,14 @@
     "extra": {
         "laravel": {
             "providers": [
-                "VendorName\\Skeleton\\SkeletonServiceProvider"
+                "Didix16\\LaraPrime\\LaraPrimeMainServiceProvider"
             ],
             "aliases": {
-                "Skeleton": "VendorName\\Skeleton\\Facades\\Skeleton"
+                "LaraPrime": "Didix16\\LaraPrime\\Facades\\LaraPrime"
             }
         }
     },
     "minimum-stability": "dev",
-    "prefer-stable": true
+    "prefer-stable": true,
+    "version": "1.0.0"
 }

@@ -1,0 +1,10 @@
+@layer theme, base, components, utilities;
+
+@source "../js";
+@source "../views";
+
+@import "tailwindcss/theme" layer(theme);
+@import "tailwindcss/preflight" layer(base);
+@import "tailwindcss/utilities" layer(utilities);
+
+@plugin "tailwindcss-animated";

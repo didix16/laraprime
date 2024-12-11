@@ -26,11 +26,13 @@ const Login: PageComponent = () => {
                         hover:border-white/50 hover:border focus:border-white/90 transition duration-250
                         `}
                     value={email}
+                    autoComplete="username"
                     placeholder="Email"
                     onInput={(e) => setEmail(e.currentTarget.value)}
                 />
                 <input
                     type="password"
+                    autoComplete="current-password"
                     className={`appearance-none p-3 w-full outline-none border border-transparent text-xl block mb-4 bg-white/10 text-white/60 rounded-3xl
                         hover:border-white/50 hover:border focus:border-white/90 transition duration-250
                         `}

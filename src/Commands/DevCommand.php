@@ -4,6 +4,7 @@ namespace Didix16\LaraPrime\Commands;
 
 use Didix16\LaraPrime\LaraPrimeServiceProvider;
 use Illuminate\Console\Command;
+use Illuminate\Filesystem\Filesystem;
 use PhpParser\Error;
 use PhpParser\Node;
 use PhpParser\NodeTraverser;
@@ -56,7 +57,6 @@ class DevCommand extends Command
                         ],
                         '--force' => true,
                     ]);
-
             }
 
             // Check if we have to modify LaraPrimeProvider
@@ -65,6 +65,31 @@ class DevCommand extends Command
                 $this->error('LaraPrimeProvider not found ❌');
 
                 return;
+            }
+
+            // Check if public/vendor/laraprime is a symlink to LaraPrime public folder
+            $filesystem = new Filesystem;
+            $this->info('Checking LaraPrime public folder for development...');
+            if (
+                (PHP_OS !== 'WINNT' && !is_link(public_path('vendor/laraprime'))) ||
+                (PHP_OS === 'WINNT' && readlink(public_path('vendor/laraprime')) !== str_replace('/', DIRECTORY_SEPARATOR, base_path('vendor/didix16/laraprime/public')))
+            ) {
+                if (is_dir(public_path('vendor/laraprime'))) {
+                    $this->warn('LaraPrime public folder is not a symlink ❌');
+                    $this->info('Proceeding to delete folder and create symlink...');
+                    if ($filesystem->deleteDirectory(public_path('vendor/laraprime'))) {
+                        $this->info('LaraPrime public folder deleted successfully! ✅');
+                    } else {
+                        $this->error('Error deleting LaraPrime public folder ❌. Please delete it manually and run this command again');
+                        return;
+                    }
+                } else {
+                    $this->warn('LaraPrime public folder not found ❌. Proceeding to create symlink...');
+                }
+                $filesystem->link(base_path('vendor/didix16/laraprime/public'), public_path('vendor/laraprime'));
+                $this->info('LaraPrime public folder symlink created successfully! ✅');
+            } else {
+                $this->info('LaraPrime public folder is a symlink ✅');
             }
 
             $this->providerContent = file_get_contents(app_path('LaraPrime/LaraPrimeProvider.php'));
@@ -87,7 +112,6 @@ class DevCommand extends Command
             // Modify LaraPrimeProvider register method
             $this->info('Modifying LaraPrimeProvider...🧪');
             $this->modifyLaraPrimeProvider();
-
         }
     }
 
@@ -152,14 +176,12 @@ CODE;
             if ($writed) {
                 $this->info('LaraPrimeProvider modified successfully! ✅');
                 $this->showReminder();
-
             } else {
                 $this->error('Error modifying LaraPrimeProvider ❌');
             }
         } catch (Error $error) {
             $this->error(sprintf('Error parsing LaraPrimeProvider file: %s', $error->getMessage()));
         }
-
     }
 
     protected function showReminder(): self

@@ -2,7 +2,6 @@ import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react-swc";
 import laravel from "laravel-vite-plugin";
 import { defineConfig } from "vite";
-import Inspect from "vite-plugin-inspect";
 
 export default defineConfig({
     css: {
@@ -13,7 +12,7 @@ export default defineConfig({
         },
     },
     plugins: [
-        Inspect(),
+        //Inspect(),
         laravel({
             input: "resources/js/app.tsx",
             refresh: true,

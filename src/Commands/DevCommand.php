@@ -71,7 +71,7 @@ class DevCommand extends Command
             $filesystem = new Filesystem;
             $this->info('Checking LaraPrime public folder for development...');
             if (
-                (PHP_OS !== 'WINNT' && !is_link(public_path('vendor/laraprime'))) ||
+                (PHP_OS !== 'WINNT' && ! is_link(public_path('vendor/laraprime'))) ||
                 (PHP_OS === 'WINNT' && readlink(public_path('vendor/laraprime')) !== str_replace('/', DIRECTORY_SEPARATOR, base_path('vendor/didix16/laraprime/public')))
             ) {
                 if (is_dir(public_path('vendor/laraprime'))) {
@@ -81,6 +81,7 @@ class DevCommand extends Command
                         $this->info('LaraPrime public folder deleted successfully! ✅');
                     } else {
                         $this->error('Error deleting LaraPrime public folder ❌. Please delete it manually and run this command again');
+
                         return;
                     }
                 } else {

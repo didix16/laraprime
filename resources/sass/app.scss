@@ -8,3 +8,28 @@
 @import "tailwindcss/utilities" layer(utilities);
 
 @plugin "tailwindcss-animated";
+
+@theme {
+    --animate-shine: shine 3s ease infinite;
+    --primary-glow-color: rgba(255 16, 149, 1);
+    --secondary-glow-color: rgba(131, 34, 255, 1);
+
+    @keyframes shine {
+        0% {
+            fill: #334155;
+            filter: brightness(100%)
+                drop-shadow(0 0 5px var(--primary-glow-color))
+                drop-shadow(2px 2px 5px var(--secondary-glow-color));
+        }
+        50% {
+            fill: #475569;
+            filter: brightness(115%) drop-shadow(0 0 8px rgba(255, 255, 255, 1));
+        }
+        100% {
+            fill: #334155;
+            filter: brightness(100%)
+                drop-shadow(0 0 5px var(--primary-glow-color))
+                drop-shadow(2px 2px 5px var(--secondary-glow-color));
+        }
+    }
+}

@@ -1,3 +1,4 @@
+import AppLogo from "@/components/AppLogo";
 import { LayoutProps } from "@/types";
 import { ReactNode } from "react";
 
@@ -13,12 +14,17 @@ export default ({ children }: LayoutProps) => {
                 backgorund:"linear-gradient(-225deg, rgb(72 72 73), rgb(134 133 135) 48%, rgb(43 42 44))"
             }} */
         >
-            <div
-                className={`p-6 shadow-2 text-center lg:w-96 animate-fade-down animate-once animate-ease-in-out animate-alternate
+            <div className="mx-auto flex justify-center flex-col animate-fade-down animate-once animate-ease-in-out animate-alternate">
+                <div className="mx-auto py-8 max-w-sm flex justify-center text-slate-800">
+                    <AppLogo className="w-32 h-32 f animate-shine" />
+                </div>
+                <div
+                    className={`p-6 shadow-2 text-center lg:w-96 animate-fade-down animate-once animate-ease-in-out animate-alternate
                     rounded-xl bg-white/10 text-white/80`}
-            >
-                <div className="text-4xl font-medium mb-6">Welcome</div>
-                {children as ReactNode}
+                >
+                    <div className="text-4xl font-medium mb-6">Welcome</div>
+                    {children as ReactNode}
+                </div>
             </div>
         </div>
     );

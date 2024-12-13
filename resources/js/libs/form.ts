@@ -119,6 +119,7 @@ export class FormErrors {
 }
 
 export default class LaraForm {
+    [name: string | symbol]: any;
     protected static VALID_METHODS: FormRequestMethods[] = [
         //"get",
         "post",

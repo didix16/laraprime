@@ -39,7 +39,7 @@ class LaraPrimeServiceProvider extends ServiceProvider
 
         if ($this->app->runningInConsole()) {
 
-            AboutCommand::add('LaraPrime', fn () => [
+            AboutCommand::add('LaraPrime', fn() => [
                 'Version' => LaraPrime::version(),
                 'Domain' => config('laraprime.domain'),
                 'Prefix' => config('laraprime.prefix'),
@@ -143,6 +143,7 @@ class LaraPrimeServiceProvider extends ServiceProvider
     {
         $this->publishes([
             LaraPrime::packagePath('build') => public_path('vendor/laraprime'),
+            LaraPrime::packagePath('resources/themes/mira') => public_path('vendor/laraprime/themes/mira'),
             LaraPrime::packagePath('resources/themes/lara-light-cyan') => public_path('vendor/laraprime/themes/lara-light-cyan'),
             LaraPrime::packagePath('resources/themes/lara-dark-cyan') => public_path('vendor/laraprime/themes/lara-dark-cyan'),
         ], ['laraprime-assets', 'laravel-assets']);
@@ -184,7 +185,7 @@ class LaraPrimeServiceProvider extends ServiceProvider
             'middleware' => 'laraprime:api',
             'excluded_middleware' => [SubstituteBindings::class],
         ], function () {
-            $this->loadRoutesFrom(__DIR__.'/../routes/api.php');
+            $this->loadRoutesFrom(__DIR__ . '/../routes/api.php');
         });
 
         return $this;

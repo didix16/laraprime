@@ -1,10 +1,11 @@
 //import { PrimeReactContext } from "primereact/api";
 //import { useContext } from "react";
 
+import useLaraForm from "@/hooks/useLaraForm";
 import AuthLayout from "@/layouts/AuthLayout";
 import { PageComponent } from "@/types";
 import { Head } from "@inertiajs/react";
-import { useState } from "react";
+import { FormEvent } from "react";
 
 const Login: PageComponent = () => {
     //const { changeTheme } = useContext(PrimeReactContext);
@@ -13,34 +14,50 @@ const Login: PageComponent = () => {
     //     changeTheme(window.LaraPrime.config('theme'), 'lara-dark-cyan', 'theme-link');
     // }
 
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    const { form } = useLaraForm({
+        email: "",
+        password: "",
+        rememberMe: false,
+    });
+
+    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        form.post("/login")
+            .then((data) => {
+                console.log(data);
+            })
+            .catch((error) => {
+                console.log(error);
+                console.log(form);
+                LaraPrime.error(error.message);
+            });
+    };
 
     return (
         <>
             <Head title="Log in" />
-            <form>
+            <form onSubmit={handleSubmit}>
                 <input
                     type="text"
                     className={`appearance-none p-3 w-full outline-none border border-transparent text-xl block mb-4 bg-white/10 text-white/60 rounded-3xl
-                        hover:border-white/50 hover:border focus:border-white/90 transition duration-250
+                        hover:border-white/50 hover:border focus:border-white/90 focus:shadow-[0px_0px_5px] transition duration-250
                         `}
-                    value={email}
+                    value={form.email}
                     autoComplete="username"
                     placeholder="Email"
-                    onInput={(e) => setEmail(e.currentTarget.value)}
+                    onInput={(e) => (form.email = e.currentTarget.value)}
                 />
                 <input
                     type="password"
                     autoComplete="current-password"
                     className={`appearance-none p-3 w-full outline-none border border-transparent text-xl block mb-4 bg-white/10 text-white/60 rounded-3xl
-                        hover:border-white/50 hover:border focus:border-white/90 transition duration-250
+                        hover:border-white/50 hover:border focus:border-white/90 focus:shadow-[0px_0px_5px] transition duration-250
                         `}
                     placeholder="Password"
-                    onInput={(e) => setPassword(e.currentTarget.value)}
+                    onInput={(e) => (form.password = e.currentTarget.value)}
                 />
                 <button
-                    type="button"
+                    type="submit"
                     className={`appearance-none border-none p-3 w-full outline-none text-xl mb-4 font-medium bg-white/30
                         hover:bg-white/40 active:bg-white/20 text-white/80 cursor-pointer
                         transition duration-250 rounded-3xl hover:shadow-lg`}

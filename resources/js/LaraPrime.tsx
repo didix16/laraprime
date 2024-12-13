@@ -6,6 +6,7 @@ import { url } from "@/utils";
 import { createInertiaApp, router } from "@inertiajs/react";
 import type { AxiosInstance, AxiosRequestConfig } from "axios";
 import { PrimeReactProvider } from "primereact/api";
+import { Toast } from "primereact/toast";
 import { createRoot } from "react-dom/client";
 import LaraForm from "./libs/form";
 
@@ -14,6 +15,7 @@ export type LaraPrimeConfig = Record<string, any>;
 export default class LaraPrime extends Emitter {
     protected appConfig: LaraPrimeConfig;
     protected pages: Record<string, PageComponent> = {};
+    protected $toast: Toast | null = null;
 
     constructor(config: LaraPrimeConfig) {
         super();
@@ -49,6 +51,7 @@ export default class LaraPrime extends Emitter {
         const appName = this.config("appName");
         const theme = this.config("theme");
         const appLocale = this.config("locale");
+        const self = this;
 
         await createInertiaApp({
             title: (title) => (!title ? appName : `${appName} - ${title}`),
@@ -70,6 +73,7 @@ export default class LaraPrime extends Emitter {
                             locale: appLocale,
                         }}
                     >
+                        <Toast ref={(el) => (self.$toast = el)} />
                         <App {...props} />
                     </PrimeReactProvider>
                 );
@@ -90,6 +94,66 @@ export default class LaraPrime extends Emitter {
 
     public config(key: string) {
         return this.appConfig[key];
+    }
+
+    /**
+     * Show a info toast message to the user
+     * @param message The info message to show
+     * @returns The LaraPrime instance
+     */
+    public info(message: string) {
+        this.$toast?.show({
+            severity: "info",
+            summary: "Info",
+            detail: message,
+            life: 3000,
+        });
+        return this;
+    }
+
+    /**
+     * Show an error toast message to the user
+     * @param message The error message to show
+     * @returns The LaraPrime instance
+     */
+    public error(message: string) {
+        this.$toast?.show({
+            severity: "error",
+            summary: "Error",
+            detail: message,
+            life: 3000,
+        });
+        return this;
+    }
+
+    /**
+     * Show a success toast message to the user
+     * @param message The success message to show
+     * @returns The LaraPrime instance
+     */
+    public success(message: string) {
+        this.$toast?.show({
+            severity: "success",
+            summary: "Success",
+            detail: message,
+            life: 3000,
+        });
+        return this;
+    }
+
+    /**
+     * Show a warning toast message to the user
+     * @param message The warning message to show
+     * @returns The LaraPrime instance
+     */
+    public warn(message: string) {
+        this.$toast?.show({
+            severity: "warn",
+            summary: "Warning",
+            detail: message,
+            life: 3000,
+        });
+        return this;
     }
 
     /**

@@ -11,8 +11,8 @@
 
 @theme {
     --animate-shine: shine 3s ease infinite;
-    --primary-glow-color: rgba(255 16, 149, 1);
-    --secondary-glow-color: rgba(131, 34, 255, 1);
+    --primary-glow-color: rgba(255, 16, 149, 0.5);
+    --secondary-glow-color: rgba(131, 34, 255, 0.5);
 
     @keyframes shine {
         0% {

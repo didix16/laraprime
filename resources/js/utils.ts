@@ -1,4 +1,6 @@
 import { InferArrayType } from "@/types";
+import clsx, { ClassValue } from "clsx";
+import { twMerge } from "tailwind-merge";
 /**
  * Url helper function to build a url with query parameters
  * @param base
@@ -123,4 +125,13 @@ export const objectToFormData = (
     }
 
     return formData;
+};
+
+/**
+ * Helper function that combines tailwindcss and clsx to merge classes
+ * @param classes
+ * @returns
+ */
+export const classNames = (...classes: ClassValue[]) => {
+    return twMerge(clsx(classes));
 };

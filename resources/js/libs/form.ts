@@ -128,7 +128,7 @@ export default class LaraForm {
         "delete",
         "head",
     ];
-    protected processing: boolean = false;
+    public processing: boolean = false;
     protected successful: boolean = false;
     protected initalValues: FormDataType = {};
     protected errors: FormErrors = new FormErrors();
@@ -180,6 +180,21 @@ export default class LaraForm {
                 obj[field] = "";
                 return obj;
             }, {});
+        }
+
+        for (const field in data) {
+            if (
+                [
+                    "processing",
+                    "successful",
+                    "initalValues",
+                    "errors",
+                    "options",
+                    "$httpLib",
+                ].includes(field)
+            ) {
+                throw new Error(`Cannot set the property ${field.toString()}`);
+            }
         }
 
         this.setInitialValues(data);

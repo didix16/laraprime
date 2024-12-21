@@ -1,14 +1,21 @@
 import AppLayout from "@/layouts/AppLayout";
 import getAxios from "@/libs/axios";
 import Emitter from "@/libs/emitter";
-import { InferArrayType, PageComponent, VisitCallback } from "@/types";
+import LaraForm from "@/libs/form";
+import SoundManager from "@/libs/sound";
+import {
+    ConfirmDialogOptions,
+    InferArrayType,
+    PageComponent,
+    VisitCallback,
+} from "@/types";
 import { url } from "@/utils";
 import { createInertiaApp, router } from "@inertiajs/react";
 import type { AxiosInstance, AxiosRequestConfig } from "axios";
 import { PrimeReactProvider } from "primereact/api";
+import { confirmDialog, ConfirmDialog } from "primereact/confirmdialog";
 import { Toast } from "primereact/toast";
 import { createRoot } from "react-dom/client";
-import LaraForm from "./libs/form";
 
 export type LaraPrimeConfig = Record<string, any>;
 
@@ -16,6 +23,7 @@ export default class LaraPrime extends Emitter {
     protected appConfig: LaraPrimeConfig;
     protected pages: Record<string, PageComponent> = {};
     protected $toast: Toast | null = null;
+    protected soundManager: SoundManager = new SoundManager();
 
     constructor(config: LaraPrimeConfig) {
         super();
@@ -74,6 +82,7 @@ export default class LaraPrime extends Emitter {
                         }}
                     >
                         <Toast ref={(el) => (self.$toast = el)} />
+                        <ConfirmDialog />
                         <App {...props} />
                     </PrimeReactProvider>
                 );
@@ -229,5 +238,42 @@ export default class LaraPrime extends Emitter {
             return;
         }
         router.visit(...(args as Parameters<VisitCallback>));
+    }
+
+    public async confirm({ message, title }: ConfirmDialogOptions) {
+        return new Promise((resolve, reject) => {
+            confirmDialog({
+                message,
+                defaultFocus: "accept",
+                position: "top",
+                header: title || "Confirm",
+                closable: false,
+                accept: () => {
+                    this.$emit("confirmDialog");
+                    resolve(true);
+                },
+                reject: () => {
+                    this.$emit("rejectDialog");
+                    resolve(false);
+                },
+            });
+            this.soundManager.playSound("confirm-show");
+        });
+    }
+
+    /**
+     * Try to logout the user from the application.
+     *
+     * @param customLogoutPath - The custom path to logout the user from the application.
+     * @returns A promise with the redirect URL after logout.
+     */
+    public async logout(customLogoutPath?: string) {
+        const response = await this.request().post(
+            !this.config("withAuthentication") && customLogoutPath
+                ? customLogoutPath
+                : this.url("/logout")
+        );
+
+        return response?.data?.redirect || null;
     }
 }

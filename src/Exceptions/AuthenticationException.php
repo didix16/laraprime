@@ -32,7 +32,6 @@ class AuthenticationException extends BaseAuthenticationException
         }
 
         return redirect()->guest($this->location());
-
     }
 
     /**
@@ -42,7 +41,7 @@ class AuthenticationException extends BaseAuthenticationException
      */
     protected function location()
     {
-        return config('nova.routes.login') ?: LaraPrime::url('login');
+        return config('laraprime.routes.login') ?: LaraPrime::url('login');
     }
 
     /**

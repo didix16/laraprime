@@ -23,7 +23,7 @@
         }
     </script>
 </head>
-<body class="font-sans antialiased">
+<body class="font-inter antialiased">
     @inertia
 
     <!-- Build LaraPrime Instance -->

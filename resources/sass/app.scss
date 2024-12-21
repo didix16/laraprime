@@ -6,13 +6,26 @@
 @import "tailwindcss/theme" layer(theme);
 @import "tailwindcss/preflight" layer(base);
 @import "tailwindcss/utilities" layer(utilities);
+@import "inter.css";
 
 @plugin "tailwindcss-animated";
 
+.slidedown {
+    animation: slidedown 0.45s ease-in-out;
+}
+
+.slideup {
+    animation: slideup 0.45s cubic-bezier(0, 1, 0, 1);
+}
+
 @theme {
     --animate-shine: shine 3s ease infinite;
+    --animate-slidedown: slidedown 0.45s ease-in-out;
+    --animate-slideup: slideup 0.45s cubic-bezier(0, 1, 0, 1);
     --primary-glow-color: rgba(255, 16, 149, 0.5);
     --secondary-glow-color: rgba(131, 34, 255, 0.5);
+    --lp-shadow-color: rgba(255, 255, 255, 1);
+    --font-inter: Inter, sans-serif;
 
     @keyframes shine {
         0% {
@@ -30,6 +43,38 @@
             filter: brightness(100%)
                 drop-shadow(0 0 5px var(--primary-glow-color))
                 drop-shadow(2px 2px 5px var(--secondary-glow-color));
+        }
+    }
+
+    @keyframes slidedown {
+        0% {
+            max-height: 0;
+        }
+
+        to {
+            max-height: auto;
+        }
+    }
+
+    @keyframes slideup {
+        0% {
+            max-height: 1000px;
+        }
+
+        to {
+            max-height: 0;
+        }
+    }
+}
+
+@layer theme {
+    :root {
+        font-feature-settings: "liga" 1, "calt" 1;
+    }
+
+    @supports (font-variation-settings: normal) {
+        :root {
+            --font-inter: InterVariable, sans-serif;
         }
     }
 }

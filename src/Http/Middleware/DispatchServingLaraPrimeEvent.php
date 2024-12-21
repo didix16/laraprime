@@ -8,7 +8,7 @@ use Didix16\LaraPrime\Http\Requests\LaraPrimeRequest;
 use Illuminate\Container\Container;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use Symfony\Component\HttpFoundation\Response;
 
 class DispatchServingLaraPrimeEvent
 {

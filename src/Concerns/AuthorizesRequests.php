@@ -8,11 +8,11 @@ use Illuminate\Http\Request;
 trait AuthorizesRequests
 {
     /**
-     * The callback that should be used to authenticate Nova users.
+     * The callback that should be used to authenticate LaraPrime users.
      *
      * @var (Closure(Request):(bool))|null
      */
-    public static ?Closure $authUsing;
+    public static ?Closure $authUsing = null;
 
     /**
      * Register the Nova authentication callback.
@@ -27,7 +27,7 @@ trait AuthorizesRequests
     }
 
     /**
-     * Determine if the given request can access the Nova dashboard.
+     * Determine if the given request can access the LaraPrime dashboard.
      *
      * @return bool
      */

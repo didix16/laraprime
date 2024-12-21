@@ -50,4 +50,10 @@ export default defineConfig({
             "@": "/resources/js",
         },
     },
+    server: {
+        watch: {
+            followSymlinks: false, // <--- This is important to prevent infinite loop, CPU usage, and memory leak
+            // ^ https://stackoverflow.com/a/77388953/28782111
+        },
+    },
 });

@@ -2,8 +2,12 @@
 
 namespace Didix16\LaraPrime;
 
+use Didix16\LaraPrime\Events\ServingLaraPrime;
+use Didix16\LaraPrime\Exceptions\LaraPrimeExceptionHandler;
+use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Contracts\Foundation\CachesRoutes;
 use Illuminate\Routing\Router;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 
@@ -20,10 +24,17 @@ abstract class LaraPrimeAppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        $this->gate();
+
         LaraPrime::routes()
             ->withAuthenticationRoutes();
 
         $this->defineRoutes();
+
+        LaraPrime::serving(function (ServingLaraPrime $event) {
+            $this->authorization();
+            $this->registerExceptionHandler();
+        });
     }
 
     /**
@@ -50,5 +61,44 @@ abstract class LaraPrimeAppServiceProvider extends ServiceProvider
             });
 
         return $this;
+    }
+
+    /**
+     * Configure the LaraPrime authorization services.
+     *
+     * @return void
+     */
+    protected function authorization()
+    {
+        LaraPrime::auth(function ($request) {
+            return app()->environment('local') ||
+                Gate::check('viewLaraPrime', [LaraPrime::user($request)]);
+        });
+    }
+
+    /**
+     * Register the LaraPrime gate.
+     *
+     * This gate determines who can access LaraPrime in non-local environments.
+     *
+     * @return void
+     */
+    protected function gate()
+    {
+        Gate::define('viewLaraPrime', function ($user) {
+            return in_array($user->email, [
+                //
+            ]);
+        });
+    }
+
+    /**
+     * Register LaraPrime's custom exception handler.
+     *
+     * @return void
+     */
+    protected function registerExceptionHandler()
+    {
+        $this->app->bind(ExceptionHandler::class, LaraPrimeExceptionHandler::class);
     }
 }

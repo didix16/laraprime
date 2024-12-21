@@ -195,13 +195,10 @@ export default class LaraForm {
             ) {
                 throw new Error(`Cannot set the property ${field.toString()}`);
             }
+            this.$data[field] = (data as Record<string, any>)[field];
         }
 
         this.setInitialValues(data);
-
-        for (const field in data) {
-            this.$data[field] = (data as Record<string, any>)[field];
-        }
 
         return this;
     }

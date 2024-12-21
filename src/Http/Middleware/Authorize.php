@@ -17,6 +17,6 @@ class Authorize
      */
     public function handle(Request $request, Closure $next)
     {
-        LaraPrime::check($request) ? $next($request) : abort(403);
+        return LaraPrime::check($request) ? $next($request) : abort(403);
     }
 }

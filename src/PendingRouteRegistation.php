@@ -3,6 +3,7 @@
 namespace Didix16\LaraPrime;
 
 use Didix16\LaraPrime\Http\Controllers\LoginController;
+use Didix16\LaraPrime\Http\Controllers\Pages\DashboardController;
 use Didix16\LaraPrime\Http\Controllers\Pages\ErrorController;
 use Didix16\LaraPrime\Http\Controllers\Pages\HomeController;
 use Illuminate\Routing\Router;
@@ -70,6 +71,8 @@ class PendingRouteRegistation
             ->group(function (Router $router) {
                 $router->get('/', [HomeController::class, 'index'])->name('home');
                 $router->redirect('dashboard', LaraPrime::url('/'))->name('dashboard');
+                $router->get('/main', [DashboardController::class, 'index'])->name('main');
+                $router->fallback([ErrorController::class, 'throw404']);
             });
     }
 

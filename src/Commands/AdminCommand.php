@@ -10,15 +10,16 @@ use Symfony\Component\Console\Attribute\AsCommand;
 #[AsCommand(name: 'laraprime:admin')]
 class AdminCommand extends Command
 {
-
     /**
      * The console command signature.
+     *
      * @var string
      */
     protected $signature = 'laraprime:admin {name?} {email?} {password?}';
 
     /**
      * The console command description.
+     *
      * @var string
      */
     protected $description = 'Create a new admin user for LaraPrime';
@@ -28,7 +29,7 @@ class AdminCommand extends Command
         $this->comment('Detecting User Model...');
         $userModel = config('auth.providers.users.model', 'App\Models\User');
         if (class_exists($userModel)) {
-            $this->comment('User Model detected: ' . $userModel);
+            $this->comment('User Model detected: '.$userModel);
             if (is_callable([$userModel, 'create'])) {
 
                 $user = $this->createAdmin(
@@ -41,10 +42,12 @@ class AdminCommand extends Command
                 $this->comment(sprintf('Admin user [%s] created successfully!', $user->email));
             } else {
                 $this->error('User Model does not have a create method!');
+
                 return;
             }
         } else {
             $this->error('User Model not found!');
+
             return;
         }
     }

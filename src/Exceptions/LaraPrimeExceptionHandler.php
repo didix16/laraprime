@@ -3,17 +3,16 @@
 namespace Didix16\LaraPrime\Exceptions;
 
 use Closure;
-use Throwable;
 use Didix16\LaraPrime\LaraPrime;
 use Didix16\LaraPrime\Util;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Inertia\Inertia;
-use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
+use Throwable;
 
 class LaraPrimeExceptionHandler extends ExceptionHandler
 {
-
     /**
      * Register the exception handling callbacks for the application.
      *
@@ -36,7 +35,6 @@ class LaraPrimeExceptionHandler extends ExceptionHandler
      * Render an exception into an HTTP response.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \Throwable  $e
      * @return \Symfony\Component\HttpFoundation\Response
      *
      * @throws \Throwable

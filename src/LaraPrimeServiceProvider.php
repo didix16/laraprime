@@ -2,9 +2,9 @@
 
 namespace Didix16\LaraPrime;
 
+use Didix16\LaraPrime\Commands\AdminCommand;
 use Didix16\LaraPrime\Commands\DevCommand;
 use Didix16\LaraPrime\Commands\InstallCommand;
-use Didix16\LaraPrime\Commands\AdminCommand;
 use Didix16\LaraPrime\Commands\PublishCommand;
 use Didix16\LaraPrime\Commands\ThemesCommand;
 use Illuminate\Foundation\Console\AboutCommand;
@@ -41,7 +41,7 @@ class LaraPrimeServiceProvider extends ServiceProvider
 
         if ($this->app->runningInConsole()) {
 
-            AboutCommand::add('LaraPrime', fn() => [
+            AboutCommand::add('LaraPrime', fn () => [
                 'Version' => LaraPrime::version(),
                 'Domain' => config('laraprime.domain'),
                 'Prefix' => config('laraprime.prefix'),
@@ -187,7 +187,7 @@ class LaraPrimeServiceProvider extends ServiceProvider
             'middleware' => 'laraprime:api',
             'excluded_middleware' => [SubstituteBindings::class],
         ], function () {
-            $this->loadRoutesFrom(__DIR__ . '/../routes/api.php');
+            $this->loadRoutesFrom(__DIR__.'/../routes/api.php');
         });
 
         return $this;

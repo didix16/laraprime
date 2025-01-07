@@ -43,6 +43,7 @@ class HandleInertiaRequests extends Middleware
             },
             'currentUser' => function () use ($request) {
                 $user = $request->user();
+
                 return ! is_null($user) ? $user->only('id', 'email', 'name') : null;
             },
             //            'currentUser' => function () use ($request) {

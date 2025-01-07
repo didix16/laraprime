@@ -6,6 +6,7 @@ import SoundManager from "@/libs/sound";
 import {
     ConfirmDialogOptions,
     InferArrayType,
+    LaraPrimeUser,
     PageComponent,
     VisitCallback,
 } from "@/types";
@@ -24,6 +25,7 @@ export default class LaraPrime extends Emitter {
     protected pages: Record<string, PageComponent> = {};
     protected $toast: Toast | null = null;
     protected soundManager: SoundManager = new SoundManager();
+    protected pageProps: Record<string, any> = {};
 
     constructor(config: LaraPrimeConfig) {
         super();
@@ -74,6 +76,7 @@ export default class LaraPrime extends Emitter {
                 return page;
             },
             setup({ el, App, props }) {
+                self.pageProps = props.initialPage.props;
                 createRoot(el).render(
                     <PrimeReactProvider
                         value={{
@@ -275,5 +278,13 @@ export default class LaraPrime extends Emitter {
         );
 
         return response?.data?.redirect || null;
+    }
+
+    /**
+     * Get the current user object
+     * @returns The current user object or null if not authenticated
+     */
+    public currentUser(): LaraPrimeUser | null {
+        return this.pageProps.currentUser ?? null;
     }
 }

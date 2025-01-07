@@ -1,4 +1,5 @@
 import Sidebar from "@/layouts/Sidebar";
+import Toolbar from "@/layouts/Toolbar";
 import { LayoutProps } from "@/types";
 import { useMountEffect, useUnmountEffect } from "primereact/hooks";
 import { ReactNode } from "react";
@@ -26,9 +27,15 @@ export default ({ children }: LayoutProps) => {
         LaraPrime.$off("token-expired", handleTokenExpired);
     });
     return (
-        <div id="laraprime" className="flex flex-row items-start h-dvh w-full">
-            <Sidebar />
-            <Main>{children as ReactNode}</Main>
+        <div
+            id="laraprime"
+            className="flex flex-col items-start h-dvh min-h-dvh w-full"
+        >
+            <Toolbar />
+            <div className="flex w-full h-full pt-2 bg-linear-180 from-slate-500 to-slate-800">
+                <Sidebar />
+                <Main>{children as ReactNode}</Main>
+            </div>
         </div>
     );
 };

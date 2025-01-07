@@ -135,3 +135,18 @@ export const objectToFormData = (
 export const classNames = (...classes: ClassValue[]) => {
     return twMerge(clsx(classes));
 };
+
+/**
+ * Helper function to hash a string with SHA-256
+ * @param str - The string to hash
+ * @returns The hashed string
+ */
+export const hash256 = async (str: string) => {
+    const utf8 = new TextEncoder().encode(str);
+    const hashBuffer = await crypto.subtle.digest("SHA-256", utf8);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    const hashHex = hashArray
+        .map((bytes) => bytes.toString(16).padStart(2, "0"))
+        .join("");
+    return hashHex;
+};

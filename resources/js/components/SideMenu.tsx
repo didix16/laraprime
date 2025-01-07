@@ -1,30 +1,16 @@
-import { router } from "@inertiajs/react";
+import ReactIcon from "./ReactIcon";
 import SideMenuItem from "./SideMenuItem";
 export default () => {
-    const handleLogout = async () => {
-        if (
-            await LaraPrime.confirm({
-                message: "Are you sure you want to logout?",
-            })
-        ) {
-            LaraPrime.logout()
-                .then((redirect) => {
-                    if (redirect) {
-                        window.location.href = redirect;
-                        return;
-                    }
-                    LaraPrime.redirectToLogin();
-                })
-                .catch(() => {
-                    router.reload();
-                });
-        }
-    };
-
     const menuItems: SideMenuItem[] = [
         {
             label: "Dashboard",
-            icon: "pi pi-home",
+            icon: (
+                <ReactIcon
+                    className="inline-block mr-2"
+                    name="hi2/HiHome"
+                    size={20}
+                />
+            ),
             children: [
                 {
                     label: "Dashboard 1",
@@ -55,19 +41,11 @@ export default () => {
     ];
 
     return (
-        <nav className="px-4 flex flex-col">
+        <nav className="px-4 flex flex-col flex-1 h-full justify-between">
             <ul>
                 {menuItems.map((item, idx) => (
                     <SideMenuItem key={`_menu${idx}`} menuItem={item} root />
                 ))}
-            </ul>
-            <ul>
-                <li>
-                    <button onClick={handleLogout}>
-                        <span className="pi pi-power-off"></span>
-                        <span>Logout</span>
-                    </button>
-                </li>
             </ul>
         </nav>
     );

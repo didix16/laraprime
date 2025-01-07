@@ -5,6 +5,7 @@ import { Badge } from "primereact/badge";
 import { Ripple } from "primereact/ripple";
 import { StyleClass } from "primereact/styleclass";
 import { MouseEvent, useEffect, useRef, useState } from "react";
+import { HiChevronDown } from "react-icons/hi2";
 
 const soundArrayBuffer = new Uint8Array([
     0x49, 0x44, 0x33, 0x04, 0x00, 0x00, 0x00, 0x00, 0x04, 0x24, 0x54, 0x43,
@@ -577,7 +578,7 @@ const SideMenuItem = ({ menuItem, root }: SideMenuItemProps) => {
                             className={classNames(
                                 `
                                 p-ripple
-                                flex justify-between
+                                flex justify-between items-center
                             cursor-pointer w-full text-left
                             rounded-lg
                             text-slate-300 px-2 py-2 transition-all ease-in-out duration-500 border border-transparent
@@ -594,23 +595,19 @@ const SideMenuItem = ({ menuItem, root }: SideMenuItemProps) => {
                             type="button"
                             onClick={() => setActive(!active)}
                         >
-                            <div>
-                                <span className="menu-icon">
-                                    <i className={menuItem.icon} />
-                                </span>
+                            <div className="flex items-center">
+                                {menuItem.icon}
                                 <span>{menuItem.label}</span>
                             </div>
 
-                            <i
+                            <HiChevronDown
                                 className={classNames(
-                                    "pi pi-chevron-down transition-transform inline-block duration-300",
+                                    "transition-transform inline-block duration-300",
                                     {
                                         "rotate-180": active,
                                     }
                                 )}
-                            >
-                                v
-                            </i>
+                            />
                             <Ripple />
                         </button>
                     </StyleClass>
@@ -638,9 +635,7 @@ const SideMenuItem = ({ menuItem, root }: SideMenuItemProps) => {
                         )}
                     >
                         {menuItem.icon && root && (
-                            <span className="menu-icon">
-                                <i className={menuItem.icon} />
-                            </span>
+                            <span className="menu-icon">{menuItem.icon}</span>
                         )}
                         <span>{menuItem.label}</span>
                         {menuItem.badge && (
@@ -671,9 +666,7 @@ const SideMenuItem = ({ menuItem, root }: SideMenuItemProps) => {
                         )}
                     >
                         {menuItem.icon && root && (
-                            <span className="menu-icon">
-                                <i className={menuItem.icon} />
-                            </span>
+                            <span className="menu-icon">{menuItem.icon}</span>
                         )}
                         <span>{menuItem.label}</span>
                         {menuItem.badge && (

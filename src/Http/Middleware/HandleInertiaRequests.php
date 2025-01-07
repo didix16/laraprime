@@ -41,6 +41,10 @@ class HandleInertiaRequests extends Middleware
             'primeConfig' => function () {
                 return [];
             },
+            'currentUser' => function () use ($request) {
+                $user = $request->user();
+                return ! is_null($user) ? $user->only('id', 'email', 'name') : null;
+            },
             //            'currentUser' => function () use ($request) {
             //                return with(LaraPrime::user($request), function ($user) use ($request) {
             //                    return ! is_null($user) ? UserResource::make($user)->toArray($request) : null;

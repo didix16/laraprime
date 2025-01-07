@@ -1,4 +1,5 @@
 import { router } from "@inertiajs/react";
+import { AvatarProps } from "primereact/avatar";
 import React, { ReactNode } from "react";
 
 export type PageComponent = {
@@ -32,7 +33,7 @@ export type SideMenuItemProps = {
 
 type BaseSideMenuItem = {
     children?: SideMenuItem[];
-    icon?: string;
+    icon?: ReactNode;
     href?: string;
     to?: string;
     badge?: any;
@@ -55,3 +56,20 @@ export type ConfirmDialogOptions = {
     message: string;
     title?: string;
 };
+
+export interface LaraPrimeUser {
+    id: number;
+    name: string;
+    email: string;
+}
+
+export interface Gravatar extends AvatarProps {
+    email: string;
+}
+
+export interface ReactIconProps {
+    className?: string;
+    name: string;
+    color?: string;
+    size: number;
+}

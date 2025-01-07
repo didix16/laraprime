@@ -1,7 +1,12 @@
+import { Card } from "primereact/card";
+
 export default () => {
     return (
         <>
-            <h1>Dashboard</h1>
+            <Card>
+                <h2>Dashboard 1</h2>
+                <p>Dashboard 1 content</p>
+            </Card>
         </>
     );
 };

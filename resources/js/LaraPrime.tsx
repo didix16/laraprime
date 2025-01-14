@@ -1,5 +1,6 @@
 import AppLayout from "@/layouts/AppLayout";
 import getAxios from "@/libs/axios";
+import ComponentRegistry from "@/libs/component-registry";
 import Emitter from "@/libs/emitter";
 import LaraForm from "@/libs/form";
 import SoundManager from "@/libs/sound";
@@ -25,6 +26,7 @@ export default class LaraPrime extends Emitter {
     protected pages: Record<string, PageComponent> = {};
     protected $toast: Toast | null = null;
     protected soundManager: SoundManager = new SoundManager();
+    protected componentRegistry: ComponentRegistry = new ComponentRegistry();
     protected pageProps: Record<string, any> = {};
 
     constructor(config: LaraPrimeConfig) {
@@ -286,5 +288,25 @@ export default class LaraPrime extends Emitter {
      */
     public currentUser(): LaraPrimeUser | null {
         return this.pageProps.currentUser ?? null;
+    }
+
+    /**
+     * Register a component with a name to be used later on the application
+     * @param name
+     * @param component
+     * @returns
+     */
+    public addComponent(name: string, component: React.ComponentType<any>) {
+        this.componentRegistry.register(name, component);
+        return this;
+    }
+
+    /**
+     * Get a component registered with the given name. Returns null if not found
+     * @param name The name of the component to get
+     * @returns The component registered with the given name or null if not found
+     */
+    public component(name: string): React.ComponentType<any> | null {
+        return this.componentRegistry.get(name);
     }
 }

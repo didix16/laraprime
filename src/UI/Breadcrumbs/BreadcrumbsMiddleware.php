@@ -11,17 +11,12 @@ use Throwable;
 
 class BreadcrumbsMiddleware
 {
-
-
     protected Router $router;
 
     protected Breadcrumbs $breadcrumbs;
 
     /**
      * BreadcumbsMiddleware constructor
-     *
-     * @param Router $router
-     * @param Breadcrumbs $breadcrumbs
      */
     public function __construct(Router $router, Breadcrumbs $breadcrumbs)
     {
@@ -32,17 +27,16 @@ class BreadcrumbsMiddleware
     /**
      * Handle the breadcrumbs middleware
      *
-     * @param Request $request
-     * @param Closure $next
      *
      * @return mixed
+     *
      * @throws Throwable
      */
     public function handle(Request $request, Closure $next)
     {
         collect($this->router->getRoutes())
-            ->filter(fn(Route $route) => array_key_exists(self::class, $route->defaults))
-            ->filter(fn(Route $route) => !$this->breadcrumbs->has($route->getName()))
+            ->filter(fn (Route $route) => array_key_exists(self::class, $route->defaults))
+            ->filter(fn (Route $route) => ! $this->breadcrumbs->has($route->getName()))
             ->each(function (Route $route) {
 
                 $serializedFn = $route->defaults[self::class];

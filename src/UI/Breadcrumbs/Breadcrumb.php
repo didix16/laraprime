@@ -7,7 +7,6 @@ use JsonSerializable;
 
 class Breadcrumb implements JsonSerializable
 {
-
     use Makeable;
 
     /**
@@ -25,7 +24,6 @@ class Breadcrumb implements JsonSerializable
      * It should be in the format of react-icons package name (react-icons/<package/IconName>): package/IconName where
      * - package is hi2 (heroicons 2). In the future we will add more packages
      * - IconName is the name of the icon component in the package
-     * @var string|null
      */
     protected ?string $icon;
 
@@ -65,39 +63,43 @@ class Breadcrumb implements JsonSerializable
 
     /**
      * Set the label of the breadcrumb
-     * @param string $label
+     *
      * @return $this
      */
     public function setLabel(string $label): self
     {
         $this->label = $label;
+
         return $this;
     }
 
     /**
      * Set the url of the breadcrumb
-     * @param string $url
+     *
      * @return $this
      */
     public function setUrl(string $url): self
     {
         $this->url = $url;
+
         return $this;
     }
 
     /**
      * Set the icon of the breadcrumb
-     * @param string $icon
+     *
      * @return $this
      */
     public function setIcon(string $icon): self
     {
         $this->icon = $icon;
+
         return $this;
     }
 
     /**
      * Prepare the breadcrumb to be serialized to JSON for menu rendering
+     *
      * @return array{name: string, url: string|null, icon: string|null}
      */
     public function jsonSerialize(): mixed
@@ -105,7 +107,7 @@ class Breadcrumb implements JsonSerializable
         return [
             'label' => $this->label,
             'url' => $this->url,
-            'icon' => $this->icon
+            'icon' => $this->icon,
         ];
     }
 }

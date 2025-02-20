@@ -29,8 +29,6 @@ class Breadcrumbs implements JsonSerializable
     /**
      * Check if the breadcrumbs collection has any item with the given name
      * If no name is provided, it will use the current route name
-     * @param ?string $name
-     * @return bool
      */
     public function has(?string $name = null): bool
     {
@@ -40,21 +38,20 @@ class Breadcrumbs implements JsonSerializable
             return false;
         }
 
-        return $this->items->contains(fn(Breadcrumb $breadcrumb) => $breadcrumb->getLabel() === $name);
+        return $this->items->contains(fn (Breadcrumb $breadcrumb) => $breadcrumb->getLabel() === $name);
     }
 
     /**
      * Add a new breadcrumb item to the collection.
      * It can be a Breadcrumb instance or a label, url and icon for the new item
-     * @param string|Breadcrumb $labelItem
-     * @param string|null $url
-     * @param string|null $icon
+     *
      * @return $this
      */
     public function add(string|Breadcrumb $labelItem, ?string $url = null, ?string $icon = null): self
     {
         if ($labelItem instanceof Breadcrumb) {
             $this->items->push($labelItem);
+
             return $this;
         }
 

@@ -39,8 +39,8 @@ class Breadcrumbs implements JsonSerializable
     /**
      * Check if the breadcrumbs registrar has a callback for the given route name
      * Return true if the registrar has a callback for the given route name
-     * @param string $name The route name to check
-     * @return bool
+     *
+     * @param  string  $name  The route name to check
      */
     public function has(string $name): bool
     {
@@ -50,8 +50,9 @@ class Breadcrumbs implements JsonSerializable
     /**
      * Get the callback for the given route name
      * Return the callback for the given route name or null if it does not exist
-     * @param string $name The route name
-     * @return callable
+     *
+     * @param  string  $name  The route name
+     *
      * @throws \Throwable
      */
     public function get(string $name): callable
@@ -61,6 +62,7 @@ class Breadcrumbs implements JsonSerializable
             Exception::class,
             "No breadcrumbs defined for route [{$name}]."
         );
+
         return $this->registrar[$name];
     }
 
@@ -86,8 +88,9 @@ class Breadcrumbs implements JsonSerializable
     /**
      * Register a callback to be executed when the breadcrumbs middleware is executed for the given route name
      * NOTE: This is a setter method, any previous callback for the given route name will be replaced
-     * @param string $name The route name
-     * @param callable $callback The callback to be executed
+     *
+     * @param  string  $name  The route name
+     * @param  callable  $callback  The callback to be executed
      * @return $this
      */
     public function register(string $name, callable $callback): self
@@ -100,12 +103,10 @@ class Breadcrumbs implements JsonSerializable
     /**
      * Call a parent route callback with the given parameters.
      *
-     * @param string $name
-     * @param mixed  $parameters
-     *
+     * @param  mixed  $parameters
      * @return $this
-     * @throws \Throwable
      *
+     * @throws \Throwable
      */
     public function parent(string $name, ...$parameters): self
     {
@@ -130,12 +131,10 @@ class Breadcrumbs implements JsonSerializable
     /**
      * Call the breadcrumb callback for the given route name with the given parameters.
      *
-     * @param string $name
-     * @param array  $parameters
      *
      * @return $this
-     * @throws \Throwable
      *
+     * @throws \Throwable
      */
     protected function call(string $name, array $parameters): self
     {

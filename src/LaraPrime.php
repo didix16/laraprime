@@ -242,20 +242,20 @@ class LaraPrime
 
                 if ($hasDark && $hasThemes) {
                     foreach ($theme['themes'] as $subTheme) {
-                        $themeName = $themeFamily . '-dark-' . $subTheme;
-                        if (File::exists(static::publicThemePath($themeName) . '/theme.css')) {
+                        $themeName = $themeFamily.'-dark-'.$subTheme;
+                        if (File::exists(static::publicThemePath($themeName).'/theme.css')) {
                             $themes[$themeName] = [
                                 'family' => $themeFamilyTitle,
-                                'name' => Str::title(Str::replace('-', ' ', $themeFamily . '-' . $subTheme)),
+                                'name' => Str::title(Str::replace('-', ' ', $themeFamily.'-'.$subTheme)),
                                 'subTheme' => $subTheme,
                                 'hasVariance' => false,
                             ];
                         }
-                        $themeName = $themeFamily . '-light-' . $subTheme;
-                        if (File::exists(static::publicThemePath($themeName) . '/theme.css')) {
+                        $themeName = $themeFamily.'-light-'.$subTheme;
+                        if (File::exists(static::publicThemePath($themeName).'/theme.css')) {
                             $themes[$themeName] = [
                                 'family' => $themeFamilyTitle,
-                                'name' => Str::title(Str::replace('-', ' ', $themeFamily . '-' . $subTheme)),
+                                'name' => Str::title(Str::replace('-', ' ', $themeFamily.'-'.$subTheme)),
                                 'subTheme' => $subTheme,
                                 'hasVariance' => false,
                             ];
@@ -263,38 +263,38 @@ class LaraPrime
                     }
                 } elseif ($hasThemes) {
                     foreach ($theme['themes'] as $subTheme) {
-                        $themeName = $themeFamily . '-' . $subTheme;
-                        if (File::exists(static::publicThemePath($themeName) . '/theme.css')) {
+                        $themeName = $themeFamily.'-'.$subTheme;
+                        if (File::exists(static::publicThemePath($themeName).'/theme.css')) {
                             $themes[$themeName] = [
                                 'family' => $themeFamilyTitle,
-                                'name' => Str::title(Str::replace('-', ' ', $themeFamily . '-' . $subTheme)),
+                                'name' => Str::title(Str::replace('-', ' ', $themeFamily.'-'.$subTheme)),
                                 'subTheme' => $subTheme,
                                 'hasVariance' => false,
                             ];
                         }
                     }
                 } elseif ($hasDark) {
-                    $themeName = $themeFamily . '-dark';
-                    if (File::exists(static::publicThemePath($themeName) . '/theme.css')) {
+                    $themeName = $themeFamily.'-dark';
+                    if (File::exists(static::publicThemePath($themeName).'/theme.css')) {
                         $themes[$themeName] = [
                             'family' => $themeFamilyTitle,
-                            'name' => Str::title(Str::replace('-', ' ', $themeFamily . '-dark')),
+                            'name' => Str::title(Str::replace('-', ' ', $themeFamily.'-dark')),
                             'subTheme' => null,
                             'hasVariance' => true,
                         ];
                     }
-                    $themeName = $themeFamily . '-light';
-                    if (File::exists(static::publicThemePath($themeName) . '/theme.css')) {
+                    $themeName = $themeFamily.'-light';
+                    if (File::exists(static::publicThemePath($themeName).'/theme.css')) {
                         $themes[$themeName] = [
                             'family' => $themeFamilyTitle,
-                            'name' => Str::title(Str::replace('-', ' ', $themeFamily . '-light')),
+                            'name' => Str::title(Str::replace('-', ' ', $themeFamily.'-light')),
                             'subTheme' => null,
                             'hasVariance' => true,
                         ];
                     }
                 } else {
                     $themeName = $themeFamily;
-                    if (File::exists(static::publicThemePath($themeName) . '/theme.css')) {
+                    if (File::exists(static::publicThemePath($themeName).'/theme.css')) {
                         $themes[$themeFamily] = [
                             'family' => $themeFamilyTitle,
                             'name' => Str::title(Str::replace('-', ' ', $themeFamily)),
@@ -314,38 +314,38 @@ class LaraPrime
                 $themeFamilyTitle = Str::title($themeFamily);
                 if ($hasDark && $hasThemes) {
                     foreach ($theme['themes'] as $subTheme) {
-                        $themes[$themeFamily . '-dark-' . $subTheme] = [
+                        $themes[$themeFamily.'-dark-'.$subTheme] = [
                             'family' => $themeFamilyTitle,
-                            'name' => Str::title(Str::replace('-', ' ', $themeFamily . '-dark-' . $subTheme)),
+                            'name' => Str::title(Str::replace('-', ' ', $themeFamily.'-dark-'.$subTheme)),
                             'subTheme' => $subTheme,
                             'hasVariance' => true,
                         ];
-                        $themes[$themeFamily . '-light-' . $subTheme] = [
+                        $themes[$themeFamily.'-light-'.$subTheme] = [
                             'family' => $themeFamilyTitle,
-                            'name' => Str::title(Str::replace('-', ' ', $themeFamily . '-light-' . $subTheme)),
+                            'name' => Str::title(Str::replace('-', ' ', $themeFamily.'-light-'.$subTheme)),
                             'subTheme' => $subTheme,
                             'hasVariance' => true,
                         ];
                     }
                 } elseif ($hasThemes) {
                     foreach ($theme['themes'] as $subTheme) {
-                        $themes[$themeFamily . '-' . $subTheme] = [
+                        $themes[$themeFamily.'-'.$subTheme] = [
                             'family' => $themeFamilyTitle,
-                            'name' => Str::title(Str::replace('-', ' ', $themeFamily . '-' . $subTheme)),
+                            'name' => Str::title(Str::replace('-', ' ', $themeFamily.'-'.$subTheme)),
                             'subTheme' => $subTheme,
                             'hasVariance' => false,
                         ];
                     }
                 } elseif ($hasDark) {
-                    $themes[$themeFamily . '-dark'] = [
+                    $themes[$themeFamily.'-dark'] = [
                         'family' => $themeFamilyTitle,
-                        'name' => Str::title(Str::replace('-', ' ', $themeFamily . '-dark')),
+                        'name' => Str::title(Str::replace('-', ' ', $themeFamily.'-dark')),
                         'subTheme' => null,
                         'hasVariance' => true,
                     ];
-                    $themes[$themeFamily . '-light'] = [
+                    $themes[$themeFamily.'-light'] = [
                         'family' => $themeFamilyTitle,
-                        'name' => Str::title(Str::replace('-', ' ', $themeFamily . '-light')),
+                        'name' => Str::title(Str::replace('-', ' ', $themeFamily.'-light')),
                         'subTheme' => null,
                         'hasVariance' => true,
                     ];
@@ -389,7 +389,7 @@ class LaraPrime
 
             $version = self::readMetaKeyFromComposerManifest('version') ?? '1.x';
 
-            return $version . ' (Optimus Prime)';
+            return $version.' (Optimus Prime)';
         });
     }
 
@@ -416,7 +416,7 @@ class LaraPrime
     {
         $current = dirname(__DIR__);
 
-        return realpath($current . ($path ? DIRECTORY_SEPARATOR . $path : $path));
+        return realpath($current.($path ? DIRECTORY_SEPARATOR.$path : $path));
     }
 
     /**
@@ -503,7 +503,7 @@ class LaraPrime
             $userId = Auth::guard(config('laraprime.guard'))->id() ?? null;
 
             static::$jsonVariables = [
-                'breadcrumbs' => fn($request) => static::$showBreadcrumbs ? app(Breadcrumbs::class) : null,
+                'breadcrumbs' => fn ($request) => static::$showBreadcrumbs ? app(Breadcrumbs::class) : null,
                 'withAuthentication' => static::$withAuthentication,
                 'customLoginPath' => config('laraprime.routes.login', false),
                 'customLogoutPath' => config('laraprime.routes.logout', false),

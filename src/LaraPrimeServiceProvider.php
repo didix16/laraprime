@@ -41,7 +41,7 @@ class LaraPrimeServiceProvider extends ServiceProvider
 
         if ($this->app->runningInConsole()) {
 
-            AboutCommand::add('LaraPrime', fn() => [
+            AboutCommand::add('LaraPrime', fn () => [
                 'Version' => LaraPrime::version(),
                 'Domain' => config('laraprime.domain'),
                 'Prefix' => config('laraprime.prefix'),
@@ -187,7 +187,7 @@ class LaraPrimeServiceProvider extends ServiceProvider
             'middleware' => 'laraprime:api',
             'excluded_middleware' => [SubstituteBindings::class],
         ], function () {
-            $this->loadRoutesFrom(__DIR__ . '/../routes/api.php');
+            $this->loadRoutesFrom(__DIR__.'/../routes/api.php');
         });
 
         return $this;

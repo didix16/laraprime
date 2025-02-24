@@ -35,8 +35,8 @@ class BreadcrumbsMiddleware
     public function handle(Request $request, Closure $next)
     {
         collect($this->router->getRoutes())
-            ->filter(fn(Route $route) => array_key_exists(self::class, $route->defaults))
-            ->filter(fn(Route $route) => ! $this->breadcrumbs->has($route->getName()))
+            ->filter(fn (Route $route) => array_key_exists(self::class, $route->defaults))
+            ->filter(fn (Route $route) => ! $this->breadcrumbs->has($route->getName()))
             ->each(function (Route $route) {
 
                 $serializedFn = $route->defaults[self::class];

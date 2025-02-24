@@ -112,10 +112,10 @@ class Breadcrumb implements JsonSerializable
     public function jsonSerialize(): mixed
     {
         return [
-            'label'     =>  $this->label,
-            'showLabel' =>  $this->showLabel,
-            'url'       =>  $this->getUrl(),
-            'icon'      =>  $this->icon,
+            'label' => $this->label,
+            'showLabel' => $this->showLabel,
+            'url' => $this->getUrl(),
+            'icon' => $this->icon,
         ];
     }
 }

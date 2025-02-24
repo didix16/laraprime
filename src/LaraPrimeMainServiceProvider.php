@@ -103,12 +103,12 @@ class LaraPrimeMainServiceProvider extends ServiceProvider
         ]);
 
         // Add Route breadcrumbs macro if not exists
-        if (!Route::hasMacro('breadcrumbs')) {
+        if (! Route::hasMacro('breadcrumbs')) {
 
             Route::macro('breadcrumbs', function (Closure $callback) {
 
                 /**
-                 *  @var Route $this
+                 * @var Route $this
                  */
                 $this
                     ->middleware('breadcrumbs')
@@ -117,7 +117,6 @@ class LaraPrimeMainServiceProvider extends ServiceProvider
                 return $this;
             });
         }
-
 
         return $this;
     }
@@ -130,7 +129,7 @@ class LaraPrimeMainServiceProvider extends ServiceProvider
                 /**
                  * @var Router $this
                  */
-                $route = $this->match(['GET', 'HEAD', 'POST'], $url . '/{m?}', $page);
+                $route = $this->match(['GET', 'HEAD', 'POST'], $url.'/{m?}', $page);
 
                 $route->where('m', $page::getAvailableMethods()->implode('|'));
 
@@ -144,7 +143,7 @@ class LaraPrimeMainServiceProvider extends ServiceProvider
                 /**
                  * @var Router $this
                  */
-                $route = $this->match(['GET', 'HEAD', 'POST'], $url . '/{m?}', $page);
+                $route = $this->match(['GET', 'HEAD', 'POST'], $url.'/{m?}', $page);
 
                 $route->where('m', $page::getAvailableMethods()->implode('|'));
 

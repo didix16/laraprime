@@ -65,8 +65,8 @@ class PendingRouteRegistation
             ->middleware(config('laraprime.middleware', []))
             ->prefix(LaraPrime::path())
             ->group(function (Router $router) {
-                $router->get('/403', ['as' => 'laraprime.pages.403', 'uses' => ErrorController::class . '@throw403']);
-                $router->get('/404', ['as' => 'laraprime.pages.404', 'uses' => ErrorController::class . '@throw404']);
+                $router->get('/403', ['as' => 'laraprime.pages.403', 'uses' => ErrorController::class.'@throw403']);
+                $router->get('/404', ['as' => 'laraprime.pages.404', 'uses' => ErrorController::class.'@throw404']);
             });
 
         Route::namespace('Didix16\LaraPrime\Http\Controllers')
@@ -74,12 +74,12 @@ class PendingRouteRegistation
             ->middleware(config('laraprime.api_middleware', []))
             ->prefix(LaraPrime::path())
             ->group(function (Router $router) {
-                $router->get('/', ['as' => 'laraprime.pages.home', 'uses' => HomeController::class . '@index']);
+                $router->get('/', ['as' => 'laraprime.pages.home', 'uses' => HomeController::class.'@index']);
                 $router->redirect('dashboard', LaraPrime::url('/'));
 
                 $router
-                    ->get('/main', ['as' => 'laraprime.pages.dashboard', 'uses' => DashboardController::class . '@index'])
-                    ->breadcrumbs(fn(Breadcrumbs $breadcrumbs) => $breadcrumbs->push('Dashboard', route('laraprime.pages.dashboard')));
+                    ->get('/main', ['as' => 'laraprime.pages.dashboard', 'uses' => DashboardController::class.'@index'])
+                    ->breadcrumbs(fn (Breadcrumbs $breadcrumbs) => $breadcrumbs->push('Dashboard', route('laraprime.pages.dashboard')));
                 $router->fallback([ErrorController::class, 'throw404'])->name('fallback');
             });
     }

@@ -13,15 +13,12 @@ use Symfony\Component\HttpFoundation\Response;
 
 abstract class Page extends Controller
 {
-
     /**
-     * @param LaraPrimeRequest $request
-     * @param mixed                    ...$arguments
+     * @param  mixed  ...$arguments
+     * @return mixed
      *
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      * @throws \ReflectionException
-     *
-     * @return mixed
      *
      * @see static::handle()
      */
@@ -43,7 +40,7 @@ abstract class Page extends Controller
         if ($user === null) {
             return true;
         }
-        //return $user->hasAnyAccess([]);
+        // return $user->hasAnyAccess([]);
     }
 
     /**
@@ -62,21 +59,19 @@ abstract class Page extends Controller
     public function view(...$params)
     {
         return Inertia::render('Page', [
-            'l' => [] // layout
+            'l' => [], // layout
         ]);
     }
 
     /**
-     * @param \Illuminate\Http\Request $request
-     * @param                          ...$arguments
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\RedirectResponse|mixed
      *
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
      * @throws \ReflectionException
      * @throws \BadMethodCallException
-     *
-     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function handle(LaraPrimeRequest $request, ...$arguments)
     {
@@ -87,8 +82,8 @@ abstract class Page extends Controller
             $method = Arr::last($request->route()->parameters(), null, 'view');
         }
 
-        //$state = $this->extractState();
-        //$this->fillPublicProperty($state);
+        // $state = $this->extractState();
+        // $this->fillPublicProperty($state);
 
         // Deny access without rights
         abort_unless($this->checkAccess($request), static::unaccessed());
@@ -106,14 +101,14 @@ abstract class Page extends Controller
     }
 
     /**
+     * @return mixed
+     *
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      * @throws \ReflectionException
-     *
-     * @return mixed
      */
     private function callMethod(string $method, array $parameters = [])
     {
-        $uses = static::class . '@' . $method;
+        $uses = static::class.'@'.$method;
 
         $preparedParameters = self::prepareForExecuteMethod($uses);
 
@@ -122,10 +117,6 @@ abstract class Page extends Controller
 
     /**
      * Prepare the method execution by binding route parameters and substituting implicit bindings.
-     *
-     * @param string $uses
-     *
-     * @return array|null
      */
     public static function prepareForExecuteMethod(string $uses): ?array
     {
@@ -162,14 +153,14 @@ abstract class Page extends Controller
             ->getMethods(\ReflectionMethod::IS_PUBLIC);
 
         return collect($class)
-            ->mapWithKeys(fn(\ReflectionMethod $method) => [$method->name => $method])
+            ->mapWithKeys(fn (\ReflectionMethod $method) => [$method->name => $method])
             ->except(get_class_methods(Page::class))
-            //->except(['query'])
+            // ->except(['query'])
             /*
              * Route filtering requires at least one element to be present.
              * We set __invoke by default, since it must be public.
              */
-            ->whenEmpty(fn() => collect('__invoke'))
+            ->whenEmpty(fn () => collect('__invoke'))
             ->keys();
     }
 }

@@ -35,8 +35,8 @@ class BreadcrumbsMiddleware
     public function handle(Request $request, Closure $next)
     {
         collect($this->router->getRoutes())
-            ->filter(fn (Route $route) => array_key_exists(self::class, $route->defaults))
-            ->filter(fn (Route $route) => ! $this->breadcrumbs->has($route->getName()))
+            ->filter(fn(Route $route) => array_key_exists(self::class, $route->defaults))
+            ->filter(fn(Route $route) => ! $this->breadcrumbs->has($route->getName()))
             ->each(function (Route $route) {
 
                 $serializedFn = $route->defaults[self::class];
@@ -44,8 +44,10 @@ class BreadcrumbsMiddleware
                 /** @var SerializableClosure $callback */
                 $callback = unserialize($serializedFn);
 
-                $callback->getClosure()($this->breadcrumbs, ...$route->parameters());
+                $this->breadcrumbs->register($route->getName(), $callback->getClosure());
             });
+
+        optional($request->route())->forgetParameter(self::class);
 
         return $next($request);
     }

@@ -32,7 +32,7 @@ export default ({ children }: LayoutProps) => {
             className="flex flex-col items-start h-dvh min-h-dvh w-full"
         >
             <Toolbar />
-            <div className="flex w-full h-full pt-2 bg-linear-180 from-slate-500 to-slate-800">
+            <div className="flex w-full h-full pt-2 pb-2 bg-linear-180 from-slate-500 to-slate-800">
                 <Sidebar />
                 <Main>{children as ReactNode}</Main>
             </div>

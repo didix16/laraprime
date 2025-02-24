@@ -1,5 +1,6 @@
 import { router } from "@inertiajs/react";
 import { AvatarProps } from "primereact/avatar";
+import { MenuItem, MenuItemOptions } from "primereact/menuitem";
 import React, { ReactNode } from "react";
 
 export type PageComponent = {
@@ -71,5 +72,19 @@ export interface ReactIconProps {
     className?: string;
     name: string;
     color?: string;
-    size: number;
+    size?: number;
+}
+
+export interface LaraPrimeBreadcrumbItem {
+    label?: string;
+    icon?: string | JSX.Element | React.FC;
+    url: string;
+    showLabel: boolean;
+    template?:
+        | ReactNode
+        | ((item: MenuItem, options: MenuItemOptions) => ReactNode);
+}
+
+export interface DynamicPageProps {
+    l: any[]; // layout
 }

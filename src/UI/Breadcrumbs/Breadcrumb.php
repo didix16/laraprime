@@ -3,6 +3,7 @@
 namespace Didix16\LaraPrime\UI\Breadcrumbs;
 
 use Didix16\LaraPrime\Traits\Makeable;
+use Illuminate\Support\Facades\Route;
 use JsonSerializable;
 
 class Breadcrumb implements JsonSerializable
@@ -13,6 +14,11 @@ class Breadcrumb implements JsonSerializable
      * The label of the breadcrumb
      */
     protected string $label;
+
+    /**
+     * Show the label of the breadcrumb
+     */
+    protected bool $showLabel;
 
     /**
      * The url or path of the breadcrumb
@@ -30,11 +36,12 @@ class Breadcrumb implements JsonSerializable
     /**
      * Build a new Breadcrumb instance
      */
-    public function __construct(string $label, ?string $url = null, ?string $icon = null)
+    public function __construct(string $label, ?string $url = null, ?string $icon = null, bool $showLabel = true)
     {
         $this->label = $label;
         $this->url = $url;
         $this->icon = $icon;
+        $this->showLabel = $showLabel;
     }
 
     /**
@@ -50,7 +57,7 @@ class Breadcrumb implements JsonSerializable
      */
     public function getUrl(): ?string
     {
-        return $this->url;
+        return Route::has($this->url) ? route($this->url) : $this->url;
     }
 
     /**
@@ -105,9 +112,10 @@ class Breadcrumb implements JsonSerializable
     public function jsonSerialize(): mixed
     {
         return [
-            'label' => $this->label,
-            'url' => $this->url,
-            'icon' => $this->icon,
+            'label'     =>  $this->label,
+            'showLabel' =>  $this->showLabel,
+            'url'       =>  $this->getUrl(),
+            'icon'      =>  $this->icon,
         ];
     }
 }

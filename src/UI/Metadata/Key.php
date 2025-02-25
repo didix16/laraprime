@@ -5,7 +5,6 @@ namespace Didix16\LaraPrime\UI\Metadata;
 /**
  * Enum Key
  * This class represents the keys that can be used in the metadata of a component
- * @package Didix16\LaraPrime\UI\Metadata
  */
 enum Key: string
 {

@@ -7,9 +7,9 @@ use Didix16\LaraPrime\Events\ServingLaraPrime;
 use Didix16\LaraPrime\Http\Middleware\ServeLaraPrime;
 use Didix16\LaraPrime\Http\Requests\LaraPrimeRequest;
 use Didix16\LaraPrime\Listeners\BootLaraPrime;
-use Didix16\LaraPrime\UI\Page\Page;
 use Didix16\LaraPrime\UI\Breadcrumbs\Breadcrumbs;
 use Didix16\LaraPrime\UI\Breadcrumbs\BreadcrumbsMiddleware;
+use Didix16\LaraPrime\UI\Page\Page;
 use Illuminate\Container\Container;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Contracts\Foundation\Application;
@@ -129,7 +129,7 @@ class LaraPrimeMainServiceProvider extends ServiceProvider
                 /**
                  * @var Router $this
                  */
-                $route = $this->match(['GET', 'HEAD', 'POST'], $url . '/{m?}', $page);
+                $route = $this->match(['GET', 'HEAD', 'POST'], $url.'/{m?}', $page);
 
                 $route->where('m', $page::getAvailableMethods()->implode('|'));
 
@@ -143,7 +143,7 @@ class LaraPrimeMainServiceProvider extends ServiceProvider
                 /**
                  * @var Router $this
                  */
-                $route = $this->match(['GET', 'HEAD', 'POST'], $url . '/{m?}', $page);
+                $route = $this->match(['GET', 'HEAD', 'POST'], $url.'/{m?}', $page);
 
                 $route->where('m', $page::getAvailableMethods()->implode('|'));
 

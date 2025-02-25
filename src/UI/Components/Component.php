@@ -10,24 +10,19 @@ use Didix16\LaraPrime\UI\Metadata\Key;
  */
 abstract class Component implements Reactable
 {
-
     /**
      * The name of the component. This name must match with the name of the React component
      * registered in LaraPrime fornt-end component registry
-     * @var string
      */
     protected string $name;
 
     /**
      * The props map of the component
-     * @var array
      */
     protected array $props;
 
     /**
      * Component constructor.
-     * @param string $name
-     * @param array $props
      */
     public function __construct(string $name, array $props = [])
     {
@@ -37,7 +32,6 @@ abstract class Component implements Reactable
 
     /**
      * Returns the name of the component
-     * @return string
      */
     public function name(): string
     {
@@ -46,7 +40,6 @@ abstract class Component implements Reactable
 
     /**
      * Returns the props of the component
-     * @return array
      */
     public function props(): array
     {
@@ -55,20 +48,16 @@ abstract class Component implements Reactable
 
     /**
      * Set a prop to the component
-     * @param string $key
-     * @param mixed $value
-     * @return static
      */
     public function setProp(string $key, mixed $value): static
     {
         $this->props[$key] = $value;
+
         return $this;
     }
 
     /**
      * Get a prop from the component. Null if prop does not exists
-     * @param string $key
-     * @return mixed
      */
     public function getProp(string $key): mixed
     {
@@ -83,7 +72,7 @@ abstract class Component implements Reactable
     {
         return [
             Key::NAME => $this->name(),
-            Key::PROPS => $this->props()
+            Key::PROPS => $this->props(),
         ];
     }
 }

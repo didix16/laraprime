@@ -8,6 +8,5 @@ use JsonSerializable;
  * Interface Reactable
  * This interface defines the contract that a component must implement to be rendered as a json serializable object
  * that can be used in a React dynamic component.
- * @package Didix16\LaraPrime\UI\Components
  */
 interface Reactable extends JsonSerializable {}

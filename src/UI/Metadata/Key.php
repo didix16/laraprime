@@ -8,6 +8,7 @@ use Didix16\LaraPrime\Traits\InvokableCases;
  * Enum Key
  * This class represents the keys that can be used in the metadata of a component
  * and the layout tree.
+ *
  * @method static string ID()
  * @method static string NAME()
  * @method static string PROPS()
@@ -15,7 +16,6 @@ use Didix16\LaraPrime\Traits\InvokableCases;
  * @method static string TYPE()
  * @method static string VALUE()
  * @method static string CHILDREN()
- *
  */
 enum Key: string
 {

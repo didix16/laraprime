@@ -32,7 +32,7 @@ trait InvokableCases
 
         if (isset($cache[$name])) {
             return $cache[$name];
-        } elseif (!empty($cache)) {
+        } elseif (! empty($cache)) {
             throw new Exception(sprintf('Undefined constant %s::%s', static::class, $name));
         }
 

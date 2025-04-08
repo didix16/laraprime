@@ -4,6 +4,7 @@ namespace Didix16\LaraPrime\UI\Page;
 
 use Didix16\LaraPrime\Http\Controllers\Controller;
 use Didix16\LaraPrime\Http\Requests\LaraPrimeRequest;
+use Didix16\LaraPrime\UI\Metadata\Key;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\App;
@@ -33,7 +34,23 @@ abstract class Page extends Controller
      */
     protected function buildLayout(): iterable
     {
-        return [];
+        return [
+            Key::LAYOUT() => [
+                Key::NAME() => 'h1',
+                Key::PROPS() => [
+
+                    'className' => 'text-3xl font-bold underline',
+                ],
+                Key::CHILDREN() => [
+                    "Test Title",
+                    [
+                        Key::NAME() => 'span',
+                        Key::PROPS() => [],
+                        Key::CHILDREN() => ['Test Span'],
+                    ]
+                ],
+            ]
+        ];
     }
 
     /**
@@ -115,7 +132,7 @@ abstract class Page extends Controller
      */
     private function callMethod(string $method, array $parameters = [])
     {
-        $uses = static::class.'@'.$method;
+        $uses = static::class . '@' . $method;
 
         $preparedParameters = self::prepareForExecuteMethod($uses);
 
@@ -160,14 +177,14 @@ abstract class Page extends Controller
             ->getMethods(\ReflectionMethod::IS_PUBLIC);
 
         return collect($class)
-            ->mapWithKeys(fn (\ReflectionMethod $method) => [$method->name => $method])
+            ->mapWithKeys(fn(\ReflectionMethod $method) => [$method->name => $method])
             ->except(get_class_methods(Page::class))
             // ->except(['query'])
             /*
              * Route filtering requires at least one element to be present.
              * We set __invoke by default, since it must be public.
              */
-            ->whenEmpty(fn () => collect('__invoke'))
+            ->whenEmpty(fn() => collect('__invoke'))
             ->keys();
     }
 }

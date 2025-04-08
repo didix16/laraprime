@@ -71,8 +71,8 @@ abstract class Component implements Reactable
     public function jsonSerialize(): mixed
     {
         return [
-            Key::NAME => $this->name(),
-            Key::PROPS => $this->props(),
+            Key::NAME() => $this->name(),
+            Key::PROPS() => $this->props(),
         ];
     }
 }

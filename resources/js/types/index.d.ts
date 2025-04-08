@@ -85,6 +85,18 @@ export interface LaraPrimeBreadcrumbItem {
         | ((item: MenuItem, options: MenuItemOptions) => ReactNode);
 }
 
+export interface DynamicComponentInterface {
+    n: string; // name of the component
+    p: {
+        [key: string]: string | number | boolean | DynamicComponentInterface[];
+    } & {
+        c?: DynamicComponentInterface[];
+        children?: DynamicComponentInterface[];
+    }; // props of the component
+    c?: DynamicComponentInterface[];
+    children?: DynamicComponentInterface[];
+}
+
 export interface DynamicPageProps {
-    l: any[]; // layout
+    l: DynamicComponentInterface; // layout
 }

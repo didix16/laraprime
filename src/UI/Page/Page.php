@@ -42,11 +42,23 @@ abstract class Page extends Controller
                     'className' => 'text-3xl font-bold underline',
                 ],
                 Key::CHILDREN() => [
-                    "Test Title",
+                    [
+                        Key::NAME() => '#t',
+                        Key::PROPS() => [
+                            'd' => 'Test title ',
+                        ],
+                    ],
                     [
                         Key::NAME() => 'span',
-                        Key::PROPS() => [],
-                        Key::CHILDREN() => ['Test Span'],
+                        Key::PROPS() => [
+                            'className' => 'text-red-500',
+                        ],
+                        Key::CHILDREN() => [[
+                            Key::NAME() => '#t',
+                            Key::PROPS() => [
+                                'd' => 'Test Span'
+                            ],
+                        ]],
                     ]
                 ],
             ]

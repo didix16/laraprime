@@ -3,7 +3,7 @@ import React from "react";
 interface DynamicComponentProps {
     component: string;
     props: any;
-    children?: Array<{ n: string; p: any; c?: any } | string>;
+    children?: Array<{ n: string; p: any; c?: any }>;
 }
 
 const DynamicComponent = ({
@@ -13,41 +13,26 @@ const DynamicComponent = ({
 }: DynamicComponentProps) => {
     const Component = LaraPrime.component(component) || component;
 
-    console.log("rendering", component, Component, props);
-    if (typeof Component === "string" && children) {
-        React.createElement(
+    const isString = typeof Component === "string";
+    if (isString && component === "#t") {
+        return props["d"] ?? "";
+    } else if (Component) {
+        return React.createElement(
             Component,
             props,
             children?.map((child, index) => (
                 <DynamicComponent
                     key={index}
-                    component={child.n || child}
+                    component={child.n}
                     props={child.p}
                     children={child.c}
                 />
             ))
         );
-    } else if (typeof Component === "string") {
-        return Component;
-    }
-
-    if (!Component) {
+    } else {
         console.error(`Component ${component} not found`);
         return null;
     }
-
-    return React.createElement(
-        Component,
-        props,
-        children?.map((child, index) => (
-            <DynamicComponent
-                key={index}
-                component={child.n}
-                props={child.p}
-                children={child.c}
-            />
-        ))
-    );
 };
 
 export default DynamicComponent;

@@ -61,7 +61,7 @@ abstract class Page extends Controller
                         ]],
                     ]
                 ],
-            ]
+            ],
         ];
     }
 

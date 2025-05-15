@@ -33,4 +33,16 @@ class Authenticate extends BaseAuthenticationMiddleware
             throw new LaraPrimeAuthenticationException('Unauthenticated.', $e->guards());
         }
     }
+
+    /**
+     * Get the path the user should be redirected to when they are not authenticated.
+     * Return null to avoid Laravel call route('login') without login route exists.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return string|null
+     */
+    protected function redirectTo($request)
+    {
+        return null;
+    }
 }

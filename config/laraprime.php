@@ -64,7 +64,7 @@ return [
     | LaraPrime Route Middleware
     |--------------------------------------------------------------------------
     |
-    | These middleware will be assigned to every Nova route, giving you the
+    | These middleware will be assigned to every LaraPrime route, giving you the
     | chance to add your own middleware to this stack or override any of
     | the existing middleware. Or, you can just stick with this stack.
     |

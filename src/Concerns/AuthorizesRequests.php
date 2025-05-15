@@ -15,7 +15,7 @@ trait AuthorizesRequests
     public static ?Closure $authUsing = null;
 
     /**
-     * Register the Nova authentication callback.
+     * Register the LaraPrime authentication callback.
      *
      * @param  Closure(Request):bool  $callback
      */
